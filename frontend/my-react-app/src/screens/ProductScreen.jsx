@@ -1,16 +1,28 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
 import { Row,Col,Image,Card,Button,ListGroup } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import  Products  from '../products'
 import { useParams } from "react-router-dom";
-import products from '../products'
+// import products from '../products'
+import axios  from 'axios'
 
 
 function ProductScreen() {
     const prm=useParams();
+    const [product,setProduct]=useState([]);
 
-    const product=products.find((p)=>p._id==prm.id)
+    useEffect(()=>{
+        const load=async()=>{
+        const response=await axios.get(`http://127.0.0.1:8000/api/products/${prm.id}/`);
+        // console.log(response.data);
+        setProduct(response.data);
+        };
+        load();
+    },[]);
+
+
+//   const product=products.find((p)=>p._id==prm.id)
     // console.log(prm.id);
   return (
     <div>
