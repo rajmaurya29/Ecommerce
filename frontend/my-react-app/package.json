@@ -1,6 +1,6 @@
 {
   "name": "my-react-app",
-  "proxy":"http://127.0.0.1:8000",
+  "proxy": "http://127.0.0.1:8000",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -11,11 +11,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.6.1",
     "axios": "^1.8.4",
     "bootstrap": "^5.3.3",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "react-redux": "^9.2.0",
+    "redux-thunk": "^3.1.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
