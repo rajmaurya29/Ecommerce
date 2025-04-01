@@ -1,34 +1,40 @@
 import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
-import { Row,Col,Image,Card,Button,ListGroup } from 'react-bootstrap'
+import { Row,Col,Image,Card,Button,ListGroup,Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import  Products  from '../products'
-import { useParams } from "react-router-dom";
-// import products from '../products'
-import axios  from 'axios'
-
+import { useParams,useNavigate } from "react-router-dom";
+import { fetchproductDetails } from '../redux/slices/ProductSlice'
+import { useDispatch,useSelector } from 'react-redux'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 function ProductScreen() {
+    const navigate=useNavigate();
+    const[qty,setQty]=useState(1);
     const prm=useParams();
-    const [product,setProduct]=useState([]);
+    const dispatch=useDispatch();
 
     useEffect(()=>{
-        const load=async()=>{
-        const response=await axios.get(`http://127.0.0.1:8000/api/products/${prm.id}/`);
-        // console.log(response.data);
-        setProduct(response.data);
-        };
-        load();
-    },[]);
+        dispatch(fetchproductDetails(prm.id));
+    },[dispatch,prm]);
+    const productDetail=useSelector((state)=>(state.products));
+    const {productLoading,productData:product,productError}=productDetail;
+
+    const addToCartHandler=()=>{
+        navigate(`/cart/${prm.id}?qty=${qty}`);
+    }
 
 
-//   const product=products.find((p)=>p._id==prm.id)
-    // console.log(prm.id);
+
+
   return (
     <div>
         <Link to='/' className='btn btn-light my-3'>Go Back</Link>
         <h1>{product.name}</h1>
-        <Row className='py-4'>
+        {
+            productLoading? <Loader/>
+            :productError?<Message variant='danger'>{productError}</Message>
+            :<Row className='py-4'>
             <Col md={6} >
                 <Image src={product.image}  alt={product.name} fluid/>
             </Col>
@@ -54,12 +60,32 @@ function ProductScreen() {
                             <Col>{product.countInStock==0? "Out of Stock" : "In Stock"} </Col>
                         </Row>
                     </ListGroup.Item>
+
+                    {product.countInStock>0 && 
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Qty </Col>
+                                <Col xs='auto' className='my-1'>
+                                    <Form.Control as='select' value={qty} onChange={(e)=>setQty(e.target.value)} >
+                                        {[...Array(product.countInStock).keys()].map((x)=>(
+                                            <option key={x+1} value={x+1}>{x+1}</option>
+                                        )
+                                        )}
+                                    </Form.Control>
+                                </Col>
+                            </Row>
+                        </ListGroup.Item>
+                    }
+
                     <ListGroup.Item>
-                        <Button className='btn-block px-5 mx-1 w-100 h-100' type='button' disabled={product.countInStock==0}>Add to Cart</Button>
+                        <Button className='btn-block px-5 mx-1 w-100 h-100' type='button' onClick={addToCartHandler} disabled={product.countInStock==0}>Add to Cart</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Col>
         </Row>
+        }
+        
+        
     </div>
   )
 }
