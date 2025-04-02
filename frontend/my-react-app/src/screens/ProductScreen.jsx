@@ -7,6 +7,8 @@ import { fetchproductDetails } from '../redux/slices/ProductSlice'
 import { useDispatch,useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
+import { addToCart,removeFromCart } from '../redux/slices/CartSlice'
+
 
 function ProductScreen() {
     const navigate=useNavigate();
@@ -21,10 +23,19 @@ function ProductScreen() {
     const {productLoading,productData:product,productError}=productDetail;
 
     const addToCartHandler=()=>{
+        dispatch(addToCart({
+            product:product._id,
+            name:product.name,
+            image:product.image,
+            price:product.price,
+            countInStock:product.countInStock,
+            qty,
+
+        }))
         navigate(`/cart/${prm.id}?qty=${qty}`);
     }
 
-
+    
 
 
   return (
