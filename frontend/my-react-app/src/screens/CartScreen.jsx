@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { ListGroup, Row,Col,Image,Form,Button } from 'react-bootstrap';
 import {useSelector,useDispatch} from 'react-redux'
 import {addToCart,removeFromCart} from '../redux/slices/CartSlice'
@@ -8,10 +8,10 @@ function CartScreen() {
   const dispatch=useDispatch();
   console.log(items);
   const removeFromCartHandler=(x)=>{
-    // console.log(x);
     dispatch(removeFromCart(x))
   }
-
+  const total=items.reduce((a,b)=>a+b.price*b.qty,0);
+  console.log(total);
   return (
     <>
     <h1>Items in cart</h1>
@@ -39,7 +39,18 @@ function CartScreen() {
                 </Col>
               </Row>
            </ListGroup.Item>
-          )}
+          )
+          }
+    {
+      <ListGroup.Item>
+        <Row>
+          <Col md={5}> <h2>Total:</h2>
+          </Col>
+          <Col md={7} > <h3>${total.toFixed(2)}</h3>
+          </Col>
+        </Row>
+      </ListGroup.Item>
+    }
           </ListGroup>
         )
       
