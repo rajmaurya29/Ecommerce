@@ -24,7 +24,27 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
 class MyTokenObtainPairView(TokenObtainPairView):
     serializer_class=MyTokenObtainPairSerializer
-
+    def post(self,request, *args, **kwargs):
+        response=super().post(request,*args,**kwargs)
+        access_token=response.data.get('access')
+        refresh_token=response.data.get('refresh')
+        response.set_cookie(
+            key='access_token',
+            value=access_token,
+            httponly=True,
+            secure=True,
+            samesite='None',
+            path='/'
+        )
+        response.set_cookie(
+            key='refresh_token',
+            value=refresh_token,
+            httponly=True,
+            secure=True,
+            samesite='None',
+            path='/'
+        )
+        return response
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
