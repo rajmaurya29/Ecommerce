@@ -64,7 +64,7 @@ def getUsers(request):
 def registerUsers(request):
     data=request.data
     try:
-        user=User.objects.create(
+        user=User.objects.create_user(
             first_name=data['name'],
             username=data['email'],
             email=data['email'],
@@ -81,3 +81,29 @@ def getUserWithToken(request):
     user=request.user
     serializer=UserSerializerWithToken(user,many=False)
     return Response(serializer.data)
+
+
+@api_view(['POST'])
+def logoutUser(request):
+    response=Response({"detail":"Logout successfully"},status=HTTP_200_OK)
+    response.set_cookie(
+            key='access_token',
+            value='',
+            max_age=0,
+            expires='Thu, 01 Jan 1970 00:00:00 GMT',
+            httponly=True,
+            secure=True,
+            samesite='None',
+            path='/'
+        )
+    response.set_cookie(
+            key='refresh_token',
+            value='',
+            max_age=0,
+            expires='Thu, 01 Jan 1970 00:00:00 GMT',
+            httponly=True,
+            secure=True,
+            samesite='None',
+            path='/'
+        )
+    return response

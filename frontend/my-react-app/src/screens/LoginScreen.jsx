@@ -21,13 +21,20 @@ function LoginScreen() {
         
         dispatch(fetchUser({"username":email,"password":password}))
         
-        navigate("/");
     }
+    useEffect(()=>{
+        if(userInfo)
+            navigate("/");
+    },[userInfo,navigate]);
   return (
     <FormContainer>
         {loading && <Loader/>}
         {error && <Message variant="danger">{error}</Message>}
+        
         <Form onSubmit={submitHandler}>
+            <Row>
+                <h1>SIGN IN</h1>
+            </Row>
             <Form.Group className='mt-3 mb-4' controlId="formBasicEmail">
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control type='text' placeholder='Enter email' onChange={(e)=>setEmail(e.target.value)}/>
@@ -39,6 +46,9 @@ function LoginScreen() {
             <Button type='submit'>
                 Submit
             </Button>
+            <Row>
+                <Col  className='mt-2'>Not registered? <Link to="/register"> Register here</Link></Col>
+            </Row>
         </Form>
     </FormContainer>
   )
