@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import { ListGroup, Row,Col,Image,Form,Button } from 'react-bootstrap';
 import {useSelector,useDispatch} from 'react-redux'
 import {addToCart,removeFromCart} from '../redux/slices/CartSlice'
+import { Link } from 'react-router-dom';
 
 function CartScreen() {
   const items=useSelector((state)=>state.cart).cartItems;
   const dispatch=useDispatch();
-  console.log(items);
+  // console.log(items);
   const removeFromCartHandler=(x)=>{
     dispatch(removeFromCart(x))
   }
   const total=items.reduce((a,b)=>a+b.price*b.qty,0);
-  console.log(total);
+  // console.log(total);
   return (
     <>
     <h1>Items in cart</h1>
@@ -55,6 +56,11 @@ function CartScreen() {
         )
       
     }
+    <Link to='/shipping'>
+      <Button type='submit' className='ms-3'>
+        Proceed to address
+      </Button>
+    </Link>
     
     </>
   )

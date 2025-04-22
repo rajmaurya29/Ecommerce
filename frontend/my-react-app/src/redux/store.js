@@ -8,6 +8,6 @@ export const store=configureStore({
         products:ProductSlice,
         cart:cartSlice,
         user:UserSlice
-
+        
     }
 });

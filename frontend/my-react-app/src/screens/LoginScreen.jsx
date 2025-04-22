@@ -14,6 +14,7 @@ function LoginScreen() {
     const dispatch=useDispatch();
     const userLogin=useSelector(state=>state.user)
     const {userInfo,loading,error}=userLogin;
+    // console.log(userInfo);
     const submitHandler=(e)=>{
         e.preventDefault();
         console.log(email);

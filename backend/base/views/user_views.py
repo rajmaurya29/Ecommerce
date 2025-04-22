@@ -53,6 +53,22 @@ def getUser(request):
     serializer=UserSerializer(user,many=False)
     return Response(serializer.data)
 
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUser(request):
+    user=request.user
+    print(request.COOKIES)
+    serializer=UserSerializerWithToken(user,many=False)
+    user.first_name=request.data['email']
+    user.email=request.data['email']
+
+    if request.data['password']!='':
+        user.set_password(request.data['password'])
+
+    user.save()
+    return Response(serializer.data)
+
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUsers(request):

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8z3nk+c#h2goh%o))!w^^6jf2)k7g3_#w0n2d5^8xe))vxj!l%
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+ 
 ALLOWED_HOSTS = []
 
 
@@ -47,7 +47,8 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'base.authentication.CookieJWTAuthentication',
+        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
 
