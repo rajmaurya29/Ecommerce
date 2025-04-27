@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react'
-import { Link} from 'react-router-dom'
+import { Link,Navigate, useNavigate} from 'react-router-dom'
 import {Form,Button,Row,Col} from 'react-bootstrap'
 import {useDispatch,useSelector} from 'react-redux'
 import FormContainer from '../components/FormContainer'
@@ -13,12 +13,12 @@ function ShippingScreen() {
     const [postalCode,setPostalCode]=useState(shipp.shipping.postalCode);
     const [country,setCountry]=useState(shipp.shipping.country);
     const dispatch=useDispatch();
-
+    const navigate=useNavigate();
     const submitHandler=async(e)=>{
         e.preventDefault();
         // console.log({"address":address,"city":city,"postalCode":postalCode,"country":country});
         dispatch(shipping({"address":address,"city":city,"postalCode":postalCode,"country":country}));
-        
+        navigate("/payment/")
     }
 
 
@@ -47,11 +47,11 @@ function ShippingScreen() {
                 <Form.Label>Country</Form.Label>
                 <Form.Control type='text' placeholder='Enter Country'  value={country} onChange={(e)=>setCountry(e.target.value)}/>
             </Form.Group>
-            <Link to='/payment/'>
+            {/* <Link> */}
                 <Button type='submit' className='ms-3'>
                     Continue
                 </Button>
-            </Link>
+            {/* </Link> */}
         </Form>
     </FormContainer>
   )

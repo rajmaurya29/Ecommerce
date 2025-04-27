@@ -13,6 +13,7 @@ function CartScreen() {
   }
   const total=items.reduce((a,b)=>a+b.price*b.qty,0);
   // console.log(total);
+  console.log(items)
   return (
     <>
     <h1>Items in cart</h1>
