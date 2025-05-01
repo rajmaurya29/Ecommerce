@@ -3,12 +3,10 @@ import axios from 'axios'
 
 export const placeOrder=createAsyncThunk(
     "order",async (orderData,thunkAPI)=>{
-        console.log(orderData)
+        // console.log(orderData)
         try{
             const response= await axios.post("http://127.0.0.1:8000/api/orders/addOrder",orderData,{withCredentials:true});
-            if(!response.ok){
-                throw new Error("Failed to add order")
-            }
+            // console.log(response.data)
             return response.data;
 
         }
@@ -29,12 +27,21 @@ const orderSlice=createSlice({
         order:{},
         error:null
     },
+    reducers:{
+        resetOrder:(state)=>{
+            state.loading=false,
+            state.success=false,
+            state.order={},
+            state.error=null
+        }
+    },
     extraReducers:(builder)=>{
         builder.addCase(placeOrder.pending,(state)=>{
             state.loading=true,
             state.error=null
         })
         builder.addCase(placeOrder.fulfilled,(state,action)=>{
+            state.success=true,
             state.loading=false,
             state.error=null,
             state.order=action.payload
@@ -47,5 +54,5 @@ const orderSlice=createSlice({
     }
 })
 
-
+export const {resetOrder} = orderSlice.actions
 export default orderSlice.reducer;

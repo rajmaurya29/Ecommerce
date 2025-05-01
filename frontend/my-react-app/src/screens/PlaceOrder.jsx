@@ -2,9 +2,9 @@ import React,{useEffect,useState} from 'react'
 import { Row,Col,Image,Card,Button,ListGroup,Form } from 'react-bootstrap'
 import { useDispatch,useSelector } from 'react-redux'
 import CheckoutScreen from './CheckoutScreen'
-import { placeOrder } from '../redux/slices/OrderSlice'
-
-
+import { placeOrder,resetOrder } from '../redux/slices/OrderSlice'
+import { clearCart } from '../redux/slices/CartSlice'
+import { useNavigate } from 'react-router-dom'
 
 function PlaceOrderScreen() {
     // const dispatch=useDispatch();
@@ -13,7 +13,9 @@ function PlaceOrderScreen() {
     const [shipping,setShipping]=useState(0);
     const [tax,setTax]=useState(0);
     const dispatch=useDispatch();
+    const navigate=useNavigate();
     const placeSelector=useSelector((state)=>state.order);
+    const userSelector=useSelector((state)=>state.user);
     const shippingSelector=useSelector((state)=>(state.cart.shipping));
     useEffect(()=>{
         // console.log(selector)
@@ -30,26 +32,40 @@ function PlaceOrderScreen() {
     },[ selector]);
     const productDetail=useSelector((state)=>(state.products));
     const {productLoading,productData:product,productError}=productDetail;
-
     
     const submitHandler=()=>{
         dispatch(placeOrder({
                 orderItems:selector,
                 shippingAddress:shippingSelector,
-                paymentMethod:"payPal",
-                itemsPrice:shipping,
+                paymentMethod:"payPal", 
                 shippingPrice:shipping,
                 taxPrice:tax,
                 totalPrice:shipping+tax
         }))
-    }
+       
 
+    }
+    useEffect(()=>{
+        if(placeSelector.success ){
+            localStorage.removeItem('cartItems')
+            dispatch(clearCart())
+            // console.log("placeselector",placeSelector.order._id);
+            const newId=placeSelector.order._id;
+            dispatch(resetOrder())
+            navigate(`/order/${newId}`);
+        }
+    },[placeSelector,dispatch])
   return (
     <div>
         {/* <Link to='/' className='btn btn-light my-3'>Go Back</Link> */}
 
         <CheckoutScreen step1={true} step2={true} step3={true} step4={true} className='my-0'/>
-
+        {
+            !userSelector.userInfo &&
+                <h1 className='text-danger mt-3'>Please login to place order</h1>
+            
+        }
+            
        <Row className='py-4'>
             <Col md={9}>
                 <Row>
@@ -122,7 +138,7 @@ function PlaceOrderScreen() {
 
 
                     <ListGroup.Item >
-                        <Button className='btn-block px-5 mx-1 w-100 h-100' onClick={submitHandler} type='submit'  disabled={product.countInStock==0}>Place Order</Button>
+                        <Button className='btn-block px-5 mx-1 w-100 h-100' onClick={submitHandler} type='submit'  disabled={selector==0 || !userSelector.userInfo}>Place Order</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Col>

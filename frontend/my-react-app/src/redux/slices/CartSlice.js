@@ -45,10 +45,13 @@
             shipping:(state,action)=>{
                 state.shipping=action.payload;
                 localStorage.setItem('shippingItems',JSON.stringify(state.shipping));
+            },
+            clearCart:(state)=>{
+                state.cartItems=[]
             }
             
         }
     })
         
-    export const {addToCart,removeFromCart,shipping}=cartSlice.actions;
+    export const {addToCart,removeFromCart,shipping,clearCart}=cartSlice.actions;
     export default cartSlice.reducer;

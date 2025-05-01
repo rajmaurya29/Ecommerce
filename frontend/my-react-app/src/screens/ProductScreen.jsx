@@ -68,7 +68,7 @@ function ProductScreen() {
                     <ListGroup.Item>
                         <Row>
                             <Col>Status: </Col>
-                            <Col>{product.countInStock==0? "Out of Stock" : "In Stock"} </Col>
+                            <Col>{product.countInStock<=0? "Out of Stock" : "In Stock"} </Col>
                         </Row>
                     </ListGroup.Item>
 
@@ -89,7 +89,7 @@ function ProductScreen() {
                     }
 
                     <ListGroup.Item>
-                        <Button className='btn-block px-5 mx-1 w-100 h-100' type='button' onClick={addToCartHandler} disabled={product.countInStock==0}>Add to Cart</Button>
+                        <Button className='btn-block px-5 mx-1 w-100 h-100' type='button' onClick={addToCartHandler} disabled={product.countInStock<=0}>Add to Cart</Button>
                     </ListGroup.Item>
                 </ListGroup>
             </Col>

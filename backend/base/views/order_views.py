@@ -15,7 +15,6 @@ from base.serializers import *
 def addOrderItems(request):
     data=request.data
     orderItems=data["orderItems"]
-    # print(orderItems)
     order=Order.objects.create(
         user=request.user,
         paymentMethod=data["paymentMethod"],
@@ -40,7 +39,32 @@ def addOrderItems(request):
             price=i["price"],
             image=product.image.url
         )
-        product.countInStock-=i["qty"]
+        product.countInStock-=int(i["qty"])
+        
         product.save()
     serializer=OrderSerializer(order,many=False)
+    
+    # print(serializer.data)
     return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getOrderById(request,pk):
+    order=Order.objects.get(_id=pk)
+    serializer=OrderSerializer(order,many=False)
+    return Response(serializer.data)
+
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def pay(request,pk):
+    order=Order.objects.get(_id=pk)
+    order.isPaid=True
+    order.save()
+    serializer=OrderSerializer(order,many=False)
+    return Response(serializer.data)
+
+

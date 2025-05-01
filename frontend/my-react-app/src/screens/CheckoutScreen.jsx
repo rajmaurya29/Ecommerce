@@ -1,5 +1,4 @@
 import React from 'react'
-import { LinkContainer } from 'react-router-bootstrap'
 import { Nav } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 function CheckoutScreen({step1,step2,step3,step4}) {
