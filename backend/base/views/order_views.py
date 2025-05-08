@@ -58,7 +58,7 @@ def getOrderById(request,pk):
 
 
 
-@api_view(['GET'])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def pay(request,pk):
     order=Order.objects.get(_id=pk)
@@ -68,3 +68,9 @@ def pay(request,pk):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def allOrders(request):
+    order=Order.objects.filter(user=request.user)
+    serializer=AllOrderSerializer(order,many=True)
+    return Response(serializer.data)

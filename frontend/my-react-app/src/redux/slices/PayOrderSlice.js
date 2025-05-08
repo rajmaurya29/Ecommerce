@@ -2,10 +2,11 @@ import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
 export const payOrder=createAsyncThunk(
-    "order",async (id,thunkAPI)=>{
+    "payOrder",async (id,thunkAPI)=>{
         // console.log(orderData)
         try{
-            const response= await axios.put(`http://127.0.0.1:8000/api/orders/pay/${id}/`,{withCredentials:true});
+            console.log(id);
+            const response= await axios.put(`http://127.0.0.1:8000/api/orders/pay/${id}/`,{},{withCredentials:true});
             // console.log(response.data)
             return response.data;
 

@@ -5,7 +5,7 @@ import UserSlice from './slices/UserSlice'
 import orderSlice from './slices/OrderSlice'
 import orderDetailSlice from './slices/OrderDetail'
 import payOrderSlice from './slices/PayOrderSlice'
-
+import allOrderSlice from './slices/AllOrderSlice'
 
 export const store=configureStore({
     reducer:{
@@ -14,6 +14,7 @@ export const store=configureStore({
         user:UserSlice,
         order:orderSlice,
         orders:orderDetailSlice,
-        pay:payOrderSlice
+        pay:payOrderSlice,
+        allOrder:allOrderSlice
     }
 });

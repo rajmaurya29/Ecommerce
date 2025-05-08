@@ -70,4 +70,8 @@ class OrderSerializer(serializers.ModelSerializer):
         user= obj.user
         serializer=UserSerializer(user,many=False)
         return serializer.data
-    
+
+class AllOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model=Order
+        fields='__all__'

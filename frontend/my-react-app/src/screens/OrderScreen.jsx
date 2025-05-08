@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import { fetchDetail } from '../redux/slices/OrderDetail'
 import { payOrder } from '../redux/slices/PayOrderSlice'
 import Message from '../components/Message'
+import PayPalButton from '../components/PayPalButton'
+
+
 function OrderScreen() {
     // const dispatch=useDispatch();
     const prm=useParams();
@@ -20,6 +23,7 @@ function OrderScreen() {
     const shippingSelector=useSelector((state)=>(state.orders.order.shippingAddress));
     const payHandler=()=>{
         dispatch(payOrder(prm.id))
+        dispatch(fetchDetail(prm.id))
     }
     useEffect(()=>{
         dispatch(fetchDetail(prm.id))
@@ -46,6 +50,7 @@ function OrderScreen() {
         {/* <Link to='/' className='btn btn-light my-3'>Go Back</Link> */}
 
         <CheckoutScreen step1={true} step2={true} step3={true} step4={true} className='my-0'/>
+        <PayPalButton/>
         {
             !userSelector.userInfo ?
                 <h1 className='text-danger mt-3'>Please login to see order</h1>
@@ -141,6 +146,9 @@ function OrderScreen() {
      
      
      
+                     </ListGroup>
+                     <ListGroup>
+                        
                      </ListGroup>
                  </Col>
              </Row>
