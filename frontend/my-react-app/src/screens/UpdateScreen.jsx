@@ -16,7 +16,11 @@ function UpdateScreen() {
     const [message,setMessage]=useState('');
     const [confirmPassword,setConfirmPassword]=useState('');
     const dispatch=useDispatch();
+    const navigate=useNavigate();
     const allOrder=useSelector(state=>state.allOrder.allOrders)
+    const detailHandler=(e)=>{
+        navigate(`../order/${e}/`)
+    }
     // console.log(allOrder)
     const userLogin=useSelector(state=>state.user)
    
@@ -102,6 +106,7 @@ function UpdateScreen() {
                             <th>Total</th>
                             <th>Paid</th>
                             <th>Delivered</th>
+                            <th>Details</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -114,6 +119,7 @@ function UpdateScreen() {
                             {order["isPaid"]?<td>✔️</td>:<td>❌</td>}
 
                             {order["isDelivered"]?<td>Yes</td>:<td>NO</td>}
+                            <td><Button onClick={()=>detailHandler(order["_id"])}>Details</Button></td>
                         </tr>
                        ))
                     }

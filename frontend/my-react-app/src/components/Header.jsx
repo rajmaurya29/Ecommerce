@@ -1,17 +1,24 @@
-  import React from 'react'
+  import React, { useEffect } from 'react'
   import { Navbar,Nav,Container,NavDropdown } from 'react-bootstrap'
   // import { LinkContainer } from 'react-router-bootstrap'
-  import { Link } from "react-router-dom";
+  import { Link, useNavigate } from "react-router-dom";
   import { useDispatch,useSelector } from 'react-redux'
 import { logoutUser } from '../redux/slices/UserSlice';
 
   function Header() {
     const userInfo=useSelector(state=>state.user.userInfo);
     const dispatch=useDispatch();
+    const navigate=useNavigate();
     const logoutHandler=()=>{
       dispatch(logoutUser());
+      navigate("/");
     }
-    // console.log(userInfo);
+    
+    // useEffect(()=>{
+    //   if(!userInfo || !userInfo.isAdimn){
+    //     navigate('/')
+    //   }
+    // },[])
     return (
       <header>
           <Navbar bg='dark' expand="lg"  variant='dark' >
@@ -34,6 +41,16 @@ import { logoutUser } from '../redux/slices/UserSlice';
                     (
                       <Nav.Link as={Link} to='/login' ><i className='fas fa-user'></i> Login </Nav.Link>
 
+                    )
+                  }
+                  {
+                    userInfo && userInfo.isAdmin &&
+                    (
+                      <NavDropdown title="Admin">
+                        
+                          <NavDropdown.Item as={Link} to='/admin/users' >users</NavDropdown.Item>
+                        
+                      </NavDropdown>
                     )
                   }
                   

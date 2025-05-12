@@ -53,12 +53,30 @@ def getUser(request):
     serializer=UserSerializer(user,many=False)
     return Response(serializer.data)
 
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getUserById(request,id):
+    user=User.objects.get(id=id)
+    serializer=UserSerializer(user,many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateUserAdmin(request,id):
+    user=User.objects.get(id=id)
+    user.first_name=request.data['name']
+    user.email=request.data['email']
+    user.is_staff=request.data['isAdmin']
+    user.save()
+    serializer=UserSerializer(user,many=False)
+    return Response(serializer.data)
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def updateUser(request):
     user=request.user
-    print(request.COOKIES)
+    # print(request.COOKIES)
     serializer=UserSerializerWithToken(user,many=False)
     user.first_name=request.data['email']
     user.email=request.data['email']
@@ -69,12 +87,28 @@ def updateUser(request):
     user.save()
     return Response(serializer.data)
 
+
+
+
 @api_view(['GET'])
 @permission_classes([IsAdminUser])
 def getUsers(request):
     user=User.objects.all()
     serializer=UserSerializer(user,many=True)
     return Response(serializer.data)
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deleteUser(request,id):
+    # print("id ",id)
+    user=User.objects.get(id=id)
+    try:
+        user.delete()
+        return Response("deleted succesfully",status=HTTP_200_OK)
+    except:
+        return Response("Not found",status=HTTP_400_BAD_REQUEST)
+
+
 
 @api_view(['POST'])
 def registerUsers(request):
