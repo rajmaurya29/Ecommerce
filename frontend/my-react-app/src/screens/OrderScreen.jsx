@@ -102,7 +102,7 @@ function OrderScreen() {
                          {selector.map((x)=>
                                     <ListGroup.Item className='my-2 ms-4'>
                                        <Row>
-                                         <Col md={2} ><Image src={x.image} width={80} /></Col>
+                                         <Col md={2} ><Image src={"http://localhost:8000/"+x.image} width={80} /></Col>
                                          <Col md={6}>{x.name}</Col>
                                          <Col md={4}>{x.qty} X ${x.price}=${(x.qty*x.price).toFixed(2)}</Col>
                                        </Row>

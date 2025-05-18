@@ -8,6 +8,11 @@ import payOrderSlice from './slices/PayOrderSlice'
 import allOrderSlice from './slices/AllOrderSlice'
 import UserListSlice from './slices/UserListSlice'
 import UserDeleteSlice from './slices/userDeleteSlice'
+import GetUserSlice from './slices/GetUserSlice'
+import UserAdminUpdateSlice from './slices/UserAdminUpdate'
+import ProductDeleteSlice from './slices/ProductDeleteSlice'
+import  ProductUpdateSlice  from './slices/ProductUpdate'
+import  CreateProductSlice  from './slices/CreateProductSlice'
 
 export const store=configureStore({
     reducer:{
@@ -19,7 +24,13 @@ export const store=configureStore({
         pay:payOrderSlice,
         allOrder:allOrderSlice,
         userList:UserListSlice,
-        userDelete:UserDeleteSlice
+        userDelete:UserDeleteSlice,
+        userDetail:GetUserSlice,
+        userUpdate:UserAdminUpdateSlice,
+        productDelete:ProductDeleteSlice,
+        productUpdate:ProductUpdateSlice,
+        productCreate:CreateProductSlice
+
 
     }
 });

@@ -19,18 +19,17 @@ function RegisterScreen() {
     const {userInfo,loading,error}=userLogin;
     const submitHandler=async(e)=>{
         e.preventDefault();
-        console.log(email);
-        console.log(password);
+        
         if(password!=confirmPassword){
             setMessage("Confirm Password do not match");
-            console.log("not matched");
+          
         }
         else{
             try{
                 const response= await axios.post("http://127.0.0.1:8000/api/users/register/",{"name":name,"email":email,"password":password},{withCredentials:true})
                 // console.log(response.data);
                 const response1=dispatch(fetchUser({"username":email,"password":password}))
-                console.log(response1);
+               
             }
             catch(error){
                 console.log(error.value)

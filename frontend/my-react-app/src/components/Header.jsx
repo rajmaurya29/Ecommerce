@@ -49,6 +49,7 @@ import { logoutUser } from '../redux/slices/UserSlice';
                       <NavDropdown title="Admin">
                         
                           <NavDropdown.Item as={Link} to='/admin/users' >users</NavDropdown.Item>
+                          <NavDropdown.Item as={Link} to='/admin/products' >products</NavDropdown.Item>
                         
                       </NavDropdown>
                     )

@@ -47,7 +47,7 @@ function ProductScreen() {
             :productError?<Message variant='danger'>{productError}</Message>
             :<Row className='py-4'>
             <Col md={6} >
-                <Image src={product.image}  alt={product.name} fluid/>
+                <Image src={"http://localhost:8000/"+product.image} alt={product.name} fluid/>
             </Col>
             <Col md={3}>
                 <ListGroup variant='flush'>

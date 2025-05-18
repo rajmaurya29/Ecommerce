@@ -3,6 +3,7 @@ import {Form,Button,Row,Col,Container,Table} from 'react-bootstrap'
 import { useSelector,useDispatch } from 'react-redux'
 import { UserList} from '../redux/slices/UserListSlice'
 import { UserDelete } from '../redux/slices/userDeleteSlice';
+import { GetUser } from '../redux/slices/GetUserSlice';
 import { useNavigate } from 'react-router-dom';
 
 function UserListScreen() {
@@ -20,6 +21,7 @@ function UserListScreen() {
   }
   const editHandler=(e)=>{
     navigate(`${e}/edit`)
+    
   }
   return (
     <div>
