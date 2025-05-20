@@ -9,6 +9,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework.status import *
 from base.models import *
 from base.serializers import *
+from datetime import datetime
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -63,6 +64,7 @@ def getOrderById(request,pk):
 def pay(request,pk):
     order=Order.objects.get(_id=pk)
     order.isPaid=True
+    order.paidAt=datetime.now()
     order.save()
     serializer=OrderSerializer(order,many=False)
     return Response(serializer.data)
@@ -74,3 +76,20 @@ def allOrders(request):
     order=Order.objects.filter(user=request.user)
     serializer=AllOrderSerializer(order,many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAdminUser])
+def getOrders(request):
+    order=Order.objects.all()
+    serializer=OrderSerializer(order,many=True)
+    return Response(serializer.data)
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def markDelivered(request,id):
+    order=Order.objects.get(_id=id)
+    order.isDelivered=True
+    order.deliveredAt=datetime.now()
+    order.save()
+    return Response("Marked as delivered")

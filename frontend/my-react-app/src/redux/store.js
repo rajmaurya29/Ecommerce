@@ -13,6 +13,8 @@ import UserAdminUpdateSlice from './slices/UserAdminUpdate'
 import ProductDeleteSlice from './slices/ProductDeleteSlice'
 import  ProductUpdateSlice  from './slices/ProductUpdate'
 import  CreateProductSlice  from './slices/CreateProductSlice'
+import  OrderAdminSlice  from './slices/OrderAdminSlice'
+import  DeliveredOrderSlice  from './slices/DeliveredOrderSlice'
 
 export const store=configureStore({
     reducer:{
@@ -29,7 +31,9 @@ export const store=configureStore({
         userUpdate:UserAdminUpdateSlice,
         productDelete:ProductDeleteSlice,
         productUpdate:ProductUpdateSlice,
-        productCreate:CreateProductSlice
+        productCreate:CreateProductSlice,
+        allOrdersAdmin:OrderAdminSlice,
+        deliveredOrderAdmin:DeliveredOrderSlice
 
 
     }

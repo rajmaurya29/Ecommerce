@@ -6,7 +6,9 @@ import { useParams } from "react-router-dom";
 import { fetchDetail } from '../redux/slices/OrderDetail'
 import { payOrder } from '../redux/slices/PayOrderSlice'
 import Message from '../components/Message'
+import { useNavigate } from 'react-router-dom';
 import PayPalButton from '../components/PayPalButton'
+import { deliveredOrder } from '../redux/slices/DeliveredOrderSlice';
 
 
 function OrderScreen() {
@@ -19,6 +21,8 @@ function OrderScreen() {
     const [shipping,setShipping]=useState(0);
     const [tax,setTax]=useState(0);
     const dispatch=useDispatch();
+    const navigate=useNavigate();
+    const paySelector=useSelector((state)=>state.pay);
     const userSelector=useSelector((state)=>state.user);
     const shippingSelector=useSelector((state)=>(state.orders.order.shippingAddress));
     const payHandler=()=>{
@@ -27,7 +31,7 @@ function OrderScreen() {
     }
     useEffect(()=>{
         dispatch(fetchDetail(prm.id))
-    },[dispatch,prm.id])
+    },[dispatch,prm.id,paySelector])
     useEffect(()=>{
 
         if(selector){
@@ -41,6 +45,11 @@ function OrderScreen() {
 
         }
     },[selector]);
+    const deliveredHandler=()=>{
+        dispatch(deliveredOrder(prm.id));
+        dispatch(fetchDetail(prm.id));
+        // navigate("/admin/orders")
+    }
     const orderInfo=useSelector((state)=>(state.orders.order))
     const productDetail=useSelector((state)=>(state.products));
     const {productLoading,productData:product,productError}=productDetail;
@@ -147,6 +156,7 @@ function OrderScreen() {
      
      
                      </ListGroup>
+                     <Button className=' mt-3 w-100' onClick={deliveredHandler}> Mark as delivered </Button>
                      <ListGroup>
                         
                      </ListGroup>
