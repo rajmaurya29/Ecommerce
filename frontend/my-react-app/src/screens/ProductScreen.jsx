@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
-import { Row,Col,Image,Card,Button,ListGroup,Form } from 'react-bootstrap'
+import { Row,Col,Table,Image,Card,Button,ListGroup,Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { useParams,useNavigate } from "react-router-dom";
 import { fetchproductDetails } from '../redux/slices/ProductSlice'
@@ -15,7 +15,7 @@ function ProductScreen() {
     const[qty,setQty]=useState(1);
     const prm=useParams();
     const dispatch=useDispatch();
-
+    const reviewSelector=useSelector(state=>state.products.productData.reviews);
     useEffect(()=>{
         dispatch(fetchproductDetails(prm.id));
     },[dispatch,prm]);
@@ -95,6 +95,33 @@ function ProductScreen() {
             </Col>
         </Row>
         }
+        <h1>other Reviews</h1>
+        
+          
+            {
+                reviewSelector && reviewSelector.length ? reviewSelector.map((review,index)=>(
+                    <Table striped>
+                    <thead>
+                      <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Rating</th>
+                        <th>Comment</th>
+                      </tr>
+                    </thead>
+                <tbody>
+                    <tr>
+                        <td>{review["_id"]}</td>
+                        <td>{review["name"]}</td>
+                        <td>{review["rating"]}</td>
+                        <td>{review["comment"]}</td>
+                    </tr>
+                </tbody>
+                </Table>
+                )):
+                <Message variant='danger'>No review found</Message>
+            }
+          
         
         
     </div>

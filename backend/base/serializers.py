@@ -37,15 +37,16 @@ class ReviewSerializer(serializers.ModelSerializer):
         model=Review
         fields='__all__'
 
-# class ProductSerializer(serializers.ModelSerializer):
-#     reviews=serializers.SerializerMethodField(read_only=True)
+class ProductSerializer(serializers.ModelSerializer):
+    reviews=serializers.SerializerMethodField(read_only=True)
 
-#     class Meta:
-#         model=Product
-#         fields='__all__'
-#     def get_reviews(self,obj):
-#         serializer=ReviewSerializer(obj,many=True)
-#         return serializer.data
+    class Meta:
+        model=Product
+        fields='__all__'
+    def get_reviews(self,obj):
+        reviews=obj.review_set.all()
+        serializer=ReviewSerializer(reviews,many=True)
+        return serializer.data
 
 class ShippingAddressSerializer(serializers.ModelSerializer):
     class Meta:

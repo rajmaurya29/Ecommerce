@@ -26,7 +26,7 @@ def deleteProduct(request,id):
     return Response("product deleted successfully")
 
 @api_view(['POST'])
-# @permission_classes([IsAdminUser])
+@permission_classes([IsAdminUser])
 def createProduct(request):
     data=request.data
     product=Product.objects.create(
