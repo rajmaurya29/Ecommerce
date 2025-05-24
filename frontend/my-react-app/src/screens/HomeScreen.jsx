@@ -17,7 +17,7 @@ function HomeScreen() {
   
   const productList=useSelector(state=>state.products) ;
   const {isLoading,data:products,error}=productList ;
-  // console.log(products);
+  // console.log(products); 
 
   console.log(error);
   return (

@@ -1,6 +1,6 @@
 import React,{useEffect,useState} from 'react'
 import { Link } from 'react-router-dom'
-import { Row,Col,Table,Image,Card,Button,ListGroup,Form } from 'react-bootstrap'
+import { Row,Col,Table,Image,Container,Card,Button,ListGroup,Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { useParams,useNavigate } from "react-router-dom";
 import { fetchproductDetails } from '../redux/slices/ProductSlice'
@@ -8,13 +8,17 @@ import { useDispatch,useSelector } from 'react-redux'
 import Loader from '../components/Loader'
 import Message from '../components/Message'
 import { addToCart,removeFromCart } from '../redux/slices/CartSlice'
-
+import FormContainer from '../components/FormContainer'
+import { PostReview } from '../redux/slices/ReviewSlice';
 
 function ProductScreen() {
     const navigate=useNavigate();
     const[qty,setQty]=useState(1);
+    const[rat,setRat]=useState(5);
+    const[comment,setComment]=useState("");
     const prm=useParams();
     const dispatch=useDispatch();
+    const userSelector=useSelector(state=>state.user.userInfo)
     const reviewSelector=useSelector(state=>state.products.productData.reviews);
     useEffect(()=>{
         dispatch(fetchproductDetails(prm.id));
@@ -35,7 +39,11 @@ function ProductScreen() {
         navigate(`/cart/${prm.id}?qty=${qty}`);
     }
 
-    
+    const reviewHandler=(e)=>{
+        e.preventDefault();
+        dispatch(PostReview([{"name":userSelector.name,"rating":rat,"comment":comment},prm.id])).then()
+        dispatch(dispatch(fetchproductDetails(prm.id)))
+    }
 
 
   return (
@@ -95,12 +103,44 @@ function ProductScreen() {
             </Col>
         </Row>
         }
+        
+        <Container>
+            <Row>
+                <Col md={4}>
+                {/* <FormContainer> */}
+        <Form onSubmit={reviewHandler}>
+            <Row>
+            <h1>Review product</h1>
+            </Row>
+            <Form.Group className='mt-3 mb-4' controlId="formBasicName">
+                <Form.Label>Rating</Form.Label>
+                <Form.Control as='select' value={rat} onChange={(e)=>setRat(e.target.value)} >
+                                        {[...Array(5).keys()].map((x)=>(
+                                            <option key={x+1} value={x+1}>{x+1}</option>
+                                        )
+                                        )}
+                                    </Form.Control>
+            </Form.Group>
+            
+            <Form.Group className='mt-3 mb-4' controlId="formBasicComment">
+                <Form.Label>Comment</Form.Label>
+                <Form.Control type='text' placeholder='Enter comment' value={comment} onChange={(e)=>setComment(e.target.value)}/>
+            </Form.Group>
+          
+           
+             
+    
+            <Button type='submit' className='mt-3 mb-5'>
+                Submit review
+            </Button>
+        </Form>
+    {/* </FormContainer> */}
+                </Col>
+            </Row>
+        </Container>
         <h1>other Reviews</h1>
         
-          
-            {
-                reviewSelector && reviewSelector.length ? reviewSelector.map((review,index)=>(
-                    <Table striped>
+        <Table striped>
                     <thead>
                       <tr>
                         <th>ID</th>
@@ -109,6 +149,9 @@ function ProductScreen() {
                         <th>Comment</th>
                       </tr>
                     </thead>
+            {
+                reviewSelector && reviewSelector.length ? reviewSelector.map((review,index)=>(
+                    
                 <tbody>
                     <tr>
                         <td>{review["_id"]}</td>
@@ -117,10 +160,12 @@ function ProductScreen() {
                         <td>{review["comment"]}</td>
                     </tr>
                 </tbody>
-                </Table>
+                
                 )):
+                
                 <Message variant='danger'>No review found</Message>
             }
+            </Table>
           
         
         

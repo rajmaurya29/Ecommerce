@@ -97,6 +97,6 @@ def createProductReview(request,id):
         
         product.rating=total_rating/len(reviews)
         product.save()
-        serializer=ProductSerializer(product,many=True)
+        serializer=ProductSerializer(product,many=False)
         return Response(serializer.data,status=HTTP_200_OK)
     
