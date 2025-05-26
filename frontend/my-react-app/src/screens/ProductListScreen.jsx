@@ -7,17 +7,30 @@ import { GetUser } from '../redux/slices/GetUserSlice';
 import { useNavigate } from 'react-router-dom';
 import { fetchproducts } from '../redux/slices/ProductSlice';
 import { ProductDelete } from '../redux/slices/ProductDeleteSlice';
+import Paginate from '../components/Paginate';
+import { useLocation } from 'react-router-dom'
 
 function ProductListScreen() {
   const productListSelector=useSelector(state=>state.products.data);
+  const pageSelector=useSelector(state=>state.products);
+  const {page,pages}=pageSelector;
   const dispatch=useDispatch();
   const navigate=useNavigate();
+  const location=useLocation();
+  let keyword=location.search;
+  let keyword_pass="";
+  try{
+    keyword_pass=keyword.split("keyword=")[1].split("&page")[0];
+  }
+  catch{
+    keyword_pass="";
+  }
   useEffect(()=>{
-    dispatch(fetchproducts())
-  },[])
+    dispatch(fetchproducts(keyword))
+  },[keyword])
   const deleteHandler=(e)=>{
    
-    dispatch(ProductDelete(e)).then(()=>{dispatch(fetchproducts())}
+    dispatch(ProductDelete(e)).then(()=>{dispatch(fetchproducts(keyword))}
     )
 
   }
@@ -55,6 +68,7 @@ function ProductListScreen() {
             }
           </tbody>
         </Table>
+        <Paginate page={page} pages={pages} keyword={keyword_pass} isAdmin={true}/>
     </div>
   )
 }

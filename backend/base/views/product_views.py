@@ -5,17 +5,42 @@ from base.models import Product,Review
 from base.serializers import ProductSerializer,ReviewSerializer
 from rest_framework.status import *
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
-
+from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
+    
 @api_view(['GET'])
 def getProducts(request):
-    products=Product.objects.all()
+    keyword=request.query_params.get('keyword')
+    page=request.query_params.get('page')
+    # print(keyword)
+    if keyword==None:
+        keyword=''
+    products=Product.objects.filter(name__icontains=keyword)
+    paginator=Paginator(products,2)
+    try:
+        
+        products=paginator.page(page)
+    except PageNotAnInteger:
+        products=paginator.page(1)
+    except EmptyPage:
+        products=paginator.page(paginator.num_pages)
+    
+    if page==None:
+        page=0
+    # print(page)
+    # print(paginator.num_pages)
     serializer=ProductSerializer(products,many=True)
-    return Response(serializer.data)
+    return Response({"products":serializer.data,"page":page,"pages":paginator.num_pages})
 
 @api_view(['GET'])
 def getProduct(request,pk):
     product=Product.objects.get(_id=pk)
     serializer=ProductSerializer(product,many=False)
+    return Response(serializer.data)
+
+@api_view(['GET'])
+def getTopProducts(request):
+    product=Product.objects.filter(rating__gte=4).order_by("-rating")[0:5]
+    serializer=ProductSerializer(product,many=True)
     return Response(serializer.data)
 
 @api_view(['DELETE'])

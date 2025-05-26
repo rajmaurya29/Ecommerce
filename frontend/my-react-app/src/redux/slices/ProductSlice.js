@@ -1,9 +1,9 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 
 export const fetchproducts=createAsyncThunk(
-    "fetchproducts",async (_,thunkAPI)=>{
+    "fetchproducts",async (keyword,thunkAPI)=>{
         try{
-            const response= await fetch("http://127.0.0.1:8000/api/products/");
+            const response= await fetch(`http://127.0.0.1:8000/api/products${keyword}`);
             if(!response.ok){
                 throw new Error("Failed to fetch products")
             }
@@ -42,7 +42,9 @@ const ProductSlice=createSlice({
         error:null,
         productLoading:false,
         productData:[],
-        productError:null
+        productError:null,
+        page:0,
+        pages:0
     },
     extraReducers:(builder)=>{
         builder.addCase(fetchproducts.pending,(state)=>{
@@ -51,7 +53,9 @@ const ProductSlice=createSlice({
         })
         builder.addCase(fetchproducts.fulfilled,(state,action)=>{
             state.isLoading=false,
-            state.data=action.payload
+            state.data=action.payload.products
+            state.page=action.payload.page
+            state.pages=action.payload.pages
         })
         builder.addCase(fetchproducts.rejected,(state,action)=>{
             state.isLoading=false,

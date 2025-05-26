@@ -4,6 +4,7 @@
   import { Link, useNavigate } from "react-router-dom";
   import { useDispatch,useSelector } from 'react-redux'
 import { logoutUser } from '../redux/slices/UserSlice';
+import SearchBox from './SearchBox';
 
   function Header() {
     const userInfo=useSelector(state=>state.user.userInfo);
@@ -14,20 +15,20 @@ import { logoutUser } from '../redux/slices/UserSlice';
       navigate("/");
     }
     
-    // useEffect(()=>{
-    //   if(!userInfo || !userInfo.isAdimn){
-    //     navigate('/')
-    //   }
-    // },[])
     return (
       <header>
           <Navbar bg='dark' expand="lg"  variant='dark' >
           <Container>
                 <Navbar.Brand as={Link} to='/'>ProShop</Navbar.Brand>
+                
               <Navbar.Toggle aria-controls="basic-navbar-nav" />
+             
               <Navbar.Collapse id="basic-navbar-nav">
+
               <Nav className="me-auto">
+              <SearchBox/>
                   <Nav.Link as={Link} to='/cart'><i className='fas fa-shopping-cart'></i> Cart</Nav.Link>
+                  
                   {
                     userInfo ?
                     (
