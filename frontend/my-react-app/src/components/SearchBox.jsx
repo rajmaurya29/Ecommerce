@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom'
 
 function SearchBox() {
     const [keyword,setKeyword]=useState("");
-    const adminSelector=useSelector(state=>state.user.userInfo.isAdmin)
+    const adminSelector=useSelector(state=>state.user.userInfo)
     const navigate=useNavigate();
     const dispatch=useDispatch();
     const location=useLocation();
@@ -19,7 +19,7 @@ function SearchBox() {
     const submitHandler= (e)=>{
         e.preventDefault();
         // console.log(keyword)
-        if(keyword && keyword_admin && adminSelector){
+        if(keyword && keyword_admin && adminSelector && adminSelector.isAdmin){
             navigate(`/admin/products/?keyword=${keyword}&page=1`)
            
         }
