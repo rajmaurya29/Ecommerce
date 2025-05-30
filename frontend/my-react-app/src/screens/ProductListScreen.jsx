@@ -18,6 +18,7 @@ function ProductListScreen() {
   const navigate=useNavigate();
   const location=useLocation();
   let keyword=location.search;
+  const modeSelector = useSelector(state => state.darkMode.Mode);
   let keyword_pass="";
   try{
     keyword_pass=keyword.split("keyword=")[1].split("&page")[0];
@@ -40,9 +41,9 @@ function ProductListScreen() {
   }
   return (
     <div>
-        <h1>products</h1>
+        <h1 className={modeSelector ? 'text-white' : ''}>products</h1>
         <Button onClick={()=>navigate("/admin/products/create")}>+create product</Button>
-        <Table striped>
+        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
           <thead>
             <tr>
               <th>PRODUCT ID</th>

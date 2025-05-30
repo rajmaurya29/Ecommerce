@@ -5,6 +5,8 @@
   import { useDispatch,useSelector } from 'react-redux'
 import { logoutUser } from '../redux/slices/UserSlice';
 import SearchBox from './SearchBox';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
+import { turnOff, turnOn } from '../redux/slices/DarkModeSlice';
 
   function Header() {
     const userInfo=useSelector(state=>state.user.userInfo);
@@ -14,9 +16,20 @@ import SearchBox from './SearchBox';
       dispatch(logoutUser());
       navigate("/");
     }
-    
+    // const darkModeOn=()=>{
+    //   dispatch(turnOn());
+    // }
+    // const darkModeOff=()=>{
+    //   dispatch(turnOff());
+    // }
+    const modeSelector=useSelector(state=>state.darkMode.Mode)
+    const toggle=()=>{
+      console.log("toggle");
+      modeSelector?dispatch(turnOff()):dispatch(turnOn());
+    }
     return (
       <header>
+         
           <Navbar bg='dark' expand="lg"  variant='dark' >
           <Container>
                 <Navbar.Brand as={Link} to='/'>ProShop</Navbar.Brand>
@@ -25,8 +38,11 @@ import SearchBox from './SearchBox';
              
               <Navbar.Collapse id="basic-navbar-nav">
 
-              <Nav className="me-auto">
+             
               <SearchBox/>
+              
+              <Nav className="ms-auto ">
+              <DarkModeSwitch checked={!modeSelector} onClick={toggle} className='mt-2 me-3'/>
                   <Nav.Link as={Link} to='/cart'><i className='fas fa-shopping-cart'></i> Cart</Nav.Link>
                   
                   {
@@ -44,6 +60,7 @@ import SearchBox from './SearchBox';
 
                     )
                   }
+                 
                   {
                     userInfo && userInfo.isAdmin &&
                     (

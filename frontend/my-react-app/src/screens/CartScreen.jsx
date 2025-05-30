@@ -24,7 +24,7 @@ function CartScreen() {
           {items.map((x)=>
            <ListGroup.Item>
               <Row>
-                <Col md={2} ><Image src={"http://localhost:8000/"+x.image} width={80} /></Col>
+                <Col md={2} ><Image src={x.image} width={80} /></Col>
                 <Col md={3}>{x.name}</Col>
                 <Col md={2}>${x.price}</Col>
                 <Col md={2}>qty:{x.qty}</Col>

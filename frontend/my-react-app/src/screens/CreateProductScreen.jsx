@@ -15,6 +15,7 @@ import { CreateProduct } from '../redux/slices/CreateProductSlice';
 
 function CreateProductScreen() {
     const navigate=useNavigate();
+    const modeSelector = useSelector(state => state.darkMode.Mode);
     const[name,setName]=useState("");
     const[brand,setBrand]=useState("");
     const[category,setCategory]=useState("");
@@ -47,7 +48,7 @@ function CreateProductScreen() {
     <FormContainer>
         <Form onSubmit={submitHandler}>
             <Row>
-                <h1>Enter New Product Details</h1>
+                <h1 className={modeSelector ? 'text-white' : ''}>Enter New Product Details</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formProductName">
                 <Form.Label>Product Name</Form.Label>

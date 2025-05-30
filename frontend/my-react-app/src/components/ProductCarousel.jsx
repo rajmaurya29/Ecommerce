@@ -15,13 +15,13 @@ function ProductCarousel() {
     },[])
   return (
     carouselSelector.loading?<Loader/>:carouselSelector.error?<Message variant='danger'>{carouselSelector.error}</Message>:
-    <Carousel pause='hover' className="product-carousel bg-dark ">
+    <Carousel pause='hover' className="product-carousel bg-dark mb-5 ">
         {
             carouselSelector.carousel.map(product=>(
               
                       <Carousel.Item>
                       <Link to={`/product/${product._id}`}>
-                         <Image  src={"http://localhost:8000/"+product.image} fluid/>
+                         <Image  src={product.image} fluid/>
                          <Carousel.Caption className='carousel-caption'>
                             <h4>{product.name} (${product.price})</h4>
                          </Carousel.Caption>

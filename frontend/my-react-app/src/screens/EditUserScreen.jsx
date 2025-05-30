@@ -17,6 +17,7 @@ function EditUserScreen() {
     const [isAdmin,setIsAdmin]=useState(false);
     const id=useParams();
     const navigate=useNavigate();
+     const modeSelector = useSelector(state => state.darkMode.Mode);
     const selector=useSelector(state=>state.userDetail.UserDetail)
     useEffect(()=>{
         dispatch(GetUser(id.id));
@@ -38,7 +39,7 @@ function EditUserScreen() {
     <FormContainer>
         <Form onSubmit={submitHandler}>
             <Row>
-                <h1>Edit</h1>
+                <h1 className={modeSelector ? 'text-white' : ''}>Edit</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formBasicName">
                 <Form.Label>Name</Form.Label>

@@ -77,3 +77,62 @@ Carousel{
       max-height: 55vh;
     }
   }
+  /* 浅色模式 */
+.light-mode {
+  background-color: #ffffff;
+  color: #333333;
+  min-height: 100vh;
+  /* padding: 20px; */
+  transition: all 0.3s ease;
+}
+
+.dark-mode {
+  background-color: #2C2C2C;
+  color: #f0f0f0;
+  min-height: 100vh;
+  /* padding: 20px; */
+  transition: all 0.3s ease;
+}
+
+.dark-mode .card {
+  background-color: #2d2d2d;
+  border-color: #444;
+}
+
+.dark-mode .text-muted {
+  color: #aaa !important;
+}
+
+
+.dark-mode .pagination .page-item .page-link {
+  background-color: #333;
+  color: #ddd;
+  border-color: #444;
+}
+
+.dark-mode .pagination .page-item.active .page-link {
+  background-color: #555;
+  border-color: #666;
+}
+/* Apply dark mode styles globally */
+.dark-mode .list-group-item {
+  background-color: #1e1e1e;
+  color: #f0f0f0;
+  border-color: #444;
+}
+
+/* Light mode styles (optional) */
+.light-mode .list-group-item {
+  background-color: #f8f9fa;
+  color: #2a2b2b;
+}
+
+/* Apply to all list group items */
+.list-group-item {
+  transition: all 0.3s ease;
+}
+
+/* Specific styles for price element */
+.dark-mode .list-group-item strong {
+  color: #bb86fc;
+}

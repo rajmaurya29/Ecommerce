@@ -17,6 +17,7 @@ import  OrderAdminSlice  from './slices/OrderAdminSlice'
 import  DeliveredOrderSlice  from './slices/DeliveredOrderSlice'
 import  ReviewSlice  from './slices/ReviewSlice'
 import  TopProductsSlice, { topProducts }  from './slices/TopProductsSlice'
+import  DarkModeSlice  from './slices/DarkModeSlice'
 
 export const store=configureStore({
     reducer:{
@@ -37,7 +38,8 @@ export const store=configureStore({
         allOrdersAdmin:OrderAdminSlice,
         deliveredOrderAdmin:DeliveredOrderSlice,
         reviewProduct:ReviewSlice,
-        topProducts:TopProductsSlice
+        topProducts:TopProductsSlice,
+        darkMode:DarkModeSlice
 
 
 

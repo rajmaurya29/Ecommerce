@@ -6,7 +6,9 @@ from base.serializers import ProductSerializer,ReviewSerializer
 from rest_framework.status import *
 from rest_framework.permissions import IsAuthenticated,IsAdminUser
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
-    
+from cloudinary.uploader import upload
+
+
 @api_view(['GET'])
 def getProducts(request):
     keyword=request.query_params.get('keyword')
@@ -15,7 +17,7 @@ def getProducts(request):
     if keyword==None:
         keyword=''
     products=Product.objects.filter(name__icontains=keyword)
-    paginator=Paginator(products,2)
+    paginator=Paginator(products,8)
     try:
         
         products=paginator.page(page)
@@ -88,8 +90,12 @@ def updateProduct(request,id):
 @api_view(['POST'])
 def uploadImage(request,id):
     product=Product.objects.get(_id=id)
-    product.image=request.FILES.get("image")
-    product.save()
+    image_file=request.FILES.get("image")
+    if image_file:
+        result=upload(image_file)
+        product.image=result['secure_url']
+        
+        product.save()
     return Response("image was uploaded")
 
 

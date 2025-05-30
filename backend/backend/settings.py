@@ -12,7 +12,10 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -34,16 +37,34 @@ ALLOWED_HOSTS = []
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
+    'cloudinary',
+    'cloudinary_storage',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-
+    
     "corsheaders",
     'base.apps.BaseConfig'
 ]
 
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dl4lqp3tp',
+    'API_KEY': '912737363823985',
+    'API_SECRET': 'xl4fqEd0icNdBptVhVK8Ow4TGiQ',
+}
+# cloudinary.config(
+#     cloud_name="dl4lqp3tp",
+#     api_key="912737363823985",
+#     api_secret="xl4fqEd0icNdBptVhVK8Ow4TGiQ"
+# )
+cloudinary.config(
+    cloud_name=CLOUDINARY_STORAGE['CLOUD_NAME'],
+    api_key=CLOUDINARY_STORAGE['API_KEY'],
+    api_secret=CLOUDINARY_STORAGE['API_SECRET']
+)
+# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -110,7 +131,9 @@ ROOT_URLCONF = 'backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR,'frontend/my-react-app/dist')
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -129,13 +152,22 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proshop',
+        'USER':'postgres',
+        'PASSWORD':'raj@postgres',
+        'HOST':'localhost',
+        'PORT':'5432'
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -186,4 +218,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
+    "https://res.cloudinary.com",
 ]

@@ -16,6 +16,8 @@ function ProductScreen() {
     const[qty,setQty]=useState(1);
     const[rat,setRat]=useState(5);
     const[comment,setComment]=useState("");
+    const modeSelector = useSelector(state => state.darkMode.Mode);
+
     const prm=useParams();
     const dispatch=useDispatch();
     const userSelector=useSelector(state=>state.user.userInfo)
@@ -49,19 +51,19 @@ function ProductScreen() {
   return (
     <div>
         <Link to='/' className='btn btn-light my-3'>Go Back</Link>
-        <h1>{product.name}</h1>
+        <h1 className={modeSelector ? 'text-white' : ''}>{product.name}</h1>
         {
             productLoading? <Loader/>
             :productError?<Message variant='danger'>{productError}</Message>
             :<Row className='py-4'>
             <Col md={6} >
-                <Image src={"http://localhost:8000/"+product.image} alt={product.name} fluid/>
+                <Image src={product.image} alt={product.name} fluid/>
             </Col>
             <Col md={3}>
-                <ListGroup variant='flush'>
-                    <ListGroup.Item><h3>{product.name}</h3></ListGroup.Item>
-                    <ListGroup.Item><Rating value={product.rating} text={`${product.numReviews} reviews`} color={'#f8e825'}/></ListGroup.Item>
-                    <ListGroup.Item><strong>Price: ${product.price}</strong></ListGroup.Item>
+                <ListGroup variant='flush' >
+                    <ListGroup.Item ><h3>{product.name}</h3></ListGroup.Item>
+                    <ListGroup.Item ><Rating value={product.rating} text={`${product.numReviews} reviews`} color={'#f8e825'}/></ListGroup.Item>
+                    <ListGroup.Item ><strong>Price: ${product.price}</strong></ListGroup.Item>
                     <ListGroup.Item>Description: {product.description}</ListGroup.Item>
                 </ListGroup>
             </Col>
@@ -108,9 +110,11 @@ function ProductScreen() {
             <Row>
                 <Col md={4}>
                 {/* <FormContainer> */}
-        <Form onSubmit={reviewHandler}>
+        {/* <Form onSubmit={reviewHandler}> */}
+        <Form onSubmit={reviewHandler} className={modeSelector ? ' text-white' : 'bg-light'}>
+
             <Row>
-            <h1>Review product</h1>
+            <h1 className={modeSelector ? 'text-white' : ''}>Review product</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formBasicName">
                 <Form.Label>Rating</Form.Label>
@@ -138,9 +142,10 @@ function ProductScreen() {
                 </Col>
             </Row>
         </Container>
-        <h1>other Reviews</h1>
+        <h1 className={modeSelector ? 'text-white' : ''}>other Reviews</h1>
         
-        <Table striped>
+        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
+
                     <thead>
                       <tr>
                         <th>ID</th>

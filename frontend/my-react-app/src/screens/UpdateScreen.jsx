@@ -17,6 +17,7 @@ function UpdateScreen() {
     const [confirmPassword,setConfirmPassword]=useState('');
     const dispatch=useDispatch();
     const navigate=useNavigate();
+     const modeSelector = useSelector(state => state.darkMode.Mode);
     const allOrder=useSelector(state=>state.allOrder.allOrders)
     const detailHandler=(e)=>{
         navigate(`../order/${e}/`)
@@ -73,7 +74,7 @@ function UpdateScreen() {
             {error && <Message variant="danger">{error}</Message>}
             <Form onSubmit={submitHandler}>
                 <Row>
-                    <h1>PROFILE</h1>
+                    <h1 className={modeSelector ? 'text-white' : ''}>PROFILE</h1>
                 </Row>
                 <Form.Group className='mt-3 mb-4' controlId="formBasicName">
                     <Form.Label>Name</Form.Label>
@@ -97,8 +98,8 @@ function UpdateScreen() {
             </Form>
             </Col>
             <Col md={7}>
-                <h1>My orders</h1>
-                <Table striped>
+                <h1 className={modeSelector ? 'text-white' : ''}>My orders</h1>
+               <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
                     <thead>
                         <tr>
                             <th>ID</th>

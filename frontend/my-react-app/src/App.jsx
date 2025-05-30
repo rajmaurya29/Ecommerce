@@ -18,12 +18,15 @@ import ProductListScreen from "./screens/ProductListScreen";
 import EditProductScreen from "./screens/EditProductScreen";
 import CreateProductScreen from "./screens/CreateProductScreen";
 import AdminOrderScreen from "./screens/AdminOrderScreen";
+import { useSelector } from "react-redux";
 
 function App() {
+  const modeSelector=useSelector(state=>state.darkMode.Mode);
   return (
     <BrowserRouter>
+    <div className={modeSelector ? 'dark-mode' : 'light-mode'}>
         <Header/>
-          <main className="py-3">
+        <main className="py-3 min-h-[80vh]">
             <Container>
               <Routes>
                 <Route path="/" element={<HomeScreen/>}/>
@@ -48,6 +51,7 @@ function App() {
             </Container>
           </main>
         <Footer/>
+        </div>
     </BrowserRouter>
   )
 }

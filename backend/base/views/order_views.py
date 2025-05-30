@@ -38,7 +38,7 @@ def addOrderItems(request):
             name=i["name"],
             qty=i["qty"],
             price=i["price"],
-            image=product.image.url
+            image=product.image
         )
         product.countInStock-=int(i["qty"])
         

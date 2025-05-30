@@ -10,6 +10,7 @@ function UserListScreen() {
   const userListSelector=useSelector(state=>state.userList.userList);
   const dispatch=useDispatch();
   const navigate=useNavigate();
+ const modeSelector = useSelector(state => state.darkMode.Mode);
   useEffect(()=>{
     dispatch(UserList());
   },[])
@@ -25,8 +26,8 @@ function UserListScreen() {
   }
   return (
     <div>
-        <h1>users</h1>
-        <Table striped>
+        <h1 className={modeSelector ? 'text-white' : ''}>users</h1>
+        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
           <thead>
             <tr>
               <th>ID</th>

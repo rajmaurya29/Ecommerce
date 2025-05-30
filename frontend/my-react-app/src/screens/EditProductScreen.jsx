@@ -27,6 +27,7 @@ function EditProductScreen() {
     const dispatch=useDispatch();
     const detailSelector=useSelector(state=>state.products.productData)
     useEffect(()=>{
+        
         dispatch(fetchproductDetails(prm.id));
         
     },[]);

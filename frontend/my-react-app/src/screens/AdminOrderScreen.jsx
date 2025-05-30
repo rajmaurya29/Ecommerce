@@ -20,14 +20,15 @@ function AdminOrderScreen() {
   const orderHandler=(e)=>{
     navigate(`/order/${e}`)
   }
+  const modeSelector = useSelector(state => state.darkMode.Mode);
   useEffect(()=>{
     if(userSelector && !userSelector.isAdmin) navigate("/");
   },[])
   return (
     <div>
-        <h1>products</h1>
+        <h1 className={modeSelector ? 'text-white' : ''}>all orders</h1>
        
-        <Table striped>
+        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
           <thead>
             <tr>
               <th>ID</th>
