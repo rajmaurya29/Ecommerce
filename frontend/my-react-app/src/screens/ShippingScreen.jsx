@@ -13,6 +13,7 @@ function ShippingScreen() {
     const [postalCode,setPostalCode]=useState(shipp.shipping.postalCode);
     const [country,setCountry]=useState(shipp.shipping.country);
     const dispatch=useDispatch();
+    const modeSelector = useSelector(state => state.darkMode.Mode);
     const navigate=useNavigate();
     const submitHandler=async(e)=>{
         e.preventDefault();
@@ -29,7 +30,7 @@ function ShippingScreen() {
 
         <Form onSubmit={submitHandler}>
             <Row>
-                <h1>SHIPPING</h1>
+                <h1 className={modeSelector ? 'text-white' : ''}>SHIPPING</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formBasicAddress">
                 <Form.Label>Address</Form.Label>

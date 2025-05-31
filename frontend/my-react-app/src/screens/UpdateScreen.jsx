@@ -44,8 +44,8 @@ function UpdateScreen() {
 
     const submitHandler=async(e)=>{
         e.preventDefault();
-        console.log(email);
-        console.log(password);
+        // console.log(email);
+        // console.log(password);
         if(password!=confirmPassword){
             setMessage("Confirm Password do not match");
             // console.log("not matched");
@@ -58,7 +58,7 @@ function UpdateScreen() {
                 // console.log(response1);
             }
             catch(error){
-                console.log(error.value)
+                // console.log(error.value)
             }
         }
         
@@ -113,7 +113,7 @@ function UpdateScreen() {
                     <tbody>
                     {
                        allOrder.length && allOrder.map((order,index)=>(
-                        <tr>
+                        <tr key={index}>
                             <td>{order["_id"]}</td>
                             <td>{order["createdAt"].slice(0,10)}</td>
                             <td>${order["totalPrice"]}</td>

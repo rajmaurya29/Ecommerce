@@ -24,7 +24,7 @@ import { turnOff, turnOn } from '../redux/slices/DarkModeSlice';
     // }
     const modeSelector=useSelector(state=>state.darkMode.Mode)
     const toggle=()=>{
-      console.log("toggle");
+      // console.log("toggle");
       modeSelector?dispatch(turnOff()):dispatch(turnOn());
     }
     return (

@@ -41,7 +41,7 @@ function HomeScreen() {
           :error?<Message variant='danger'>{error}</Message>
           :<div>
             <Row>
-              {products.map(product=>(
+              {products.map((product,index)=>(
                   <Col key={product._id} sm={12} md={6} lg={4} xl={3} >
                       <Product product={product}/>
                   </Col>

@@ -14,10 +14,10 @@ function Paginate({pages,page,keyword='',isAdmin=false}) {
     pages>1 &&(
         <Pagination>
             {
-                [...Array(pages).keys()].map((x)=>(
+                [...Array(pages).keys()].map((x,index)=>(
                    
-                   
-                        <Pagination.Item active={x+1===page} onClick={()=>{navigateHandler(x+1)}}>
+                    
+                        <Pagination.Item active={x+1===page} onClick={()=>{navigateHandler(x+1)}} key={index}>
                             {x+1}
                         </Pagination.Item>
                     

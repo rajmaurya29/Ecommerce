@@ -40,7 +40,7 @@ function UserListScreen() {
           <tbody>
             {
                 userListSelector.length && userListSelector.map((user,index)=>(
-                <tr>
+                <tr key={index}>
                     <td>{user["_id"]}</td>
                     <td>{user["name"]}</td>
                     <td>{user["email"]}</td>

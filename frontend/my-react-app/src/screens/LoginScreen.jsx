@@ -14,11 +14,12 @@ function LoginScreen() {
     const dispatch=useDispatch();
     const userLogin=useSelector(state=>state.user)
     const {userInfo,loading,error}=userLogin;
+    const modeSelector = useSelector(state => state.darkMode.Mode);
     // console.log(userInfo);
     const submitHandler=(e)=>{
         e.preventDefault();
-        console.log(email);
-        console.log(password);
+        // console.log(email);
+        // console.log(password);
         
         dispatch(fetchUser({"username":email,"password":password}))
         
@@ -34,7 +35,7 @@ function LoginScreen() {
         
         <Form onSubmit={submitHandler}>
             <Row>
-                <h1>SIGN IN</h1>
+                <h1 className={modeSelector ? 'text-white' : ''}>SIGN IN</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formBasicEmail">
                 <Form.Label>Email Address</Form.Label>

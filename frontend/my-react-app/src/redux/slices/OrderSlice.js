@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const placeOrder=createAsyncThunk(
     "order",async (orderData,thunkAPI)=>{
-        console.log(orderData)
+        // console.log(orderData)
         try{
             const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/orders/addOrder",orderData,{withCredentials:true});
             // console.log(response.data)

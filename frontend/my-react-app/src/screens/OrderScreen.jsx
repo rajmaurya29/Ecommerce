@@ -7,7 +7,7 @@ import { fetchDetail } from '../redux/slices/OrderDetail'
 import { payOrder } from '../redux/slices/PayOrderSlice'
 import Message from '../components/Message'
 import { useNavigate } from 'react-router-dom';
-import PayPalButton from '../components/PayPalButton'
+
 import { deliveredOrder } from '../redux/slices/DeliveredOrderSlice';
 
 
@@ -18,6 +18,7 @@ function OrderScreen() {
     const selector=useSelector((state)=>(state.orders.order.orderItems))
     // console.log("selector",selector)
     const [countItem,setCountItem]=useState(0);
+    const modeSelector = useSelector(state => state.darkMode.Mode);
     const [shipping,setShipping]=useState(0);
     const [tax,setTax]=useState(0);
     const dispatch=useDispatch();
@@ -59,7 +60,7 @@ function OrderScreen() {
         {/* <Link to='/' className='btn btn-light my-3'>Go Back</Link> */}
 
         <CheckoutScreen step1={true} step2={true} step3={true} step4={true} className='my-0'/>
-        <PayPalButton/>
+      
         {
             !userSelector.userInfo ?
                 <h1 className='text-danger mt-3'>Please login to see order</h1>
@@ -71,18 +72,18 @@ function OrderScreen() {
                  <Col md={9}>
                      <Row>
 
-                         <h1>
+                         <h1 className={modeSelector ? 'text-white' : ''}>
                              Shipping
                          </h1>
-                         <h5 className='py-2'>
+                         <h5  className={modeSelector ? 'text-white py-2' : 'py-2'}>
                              Name: {orderInfo.user.username}
                          </h5>
-                         <h5 className='py-2'>
+                         <h5  className={modeSelector ? 'text-white py-2' : 'py-2'}>
                              shipping: {shippingSelector.address}, {shippingSelector.city}, {shippingSelector.postalCode}, {shippingSelector.country}
                          </h5>
-                         <h5 className='py-2'>
+                         <h5  className={modeSelector ? 'text-white py-2' : 'py-2'}>
                              Created at: {orderInfo.createdAt}
-                         </h5>
+                         </h5 >
                             {
                                 orderInfo.isDelivered?
                                 <Message variant='success'>Delivered</Message>:
@@ -91,10 +92,10 @@ function OrderScreen() {
                          <hr/>
                      </Row>
                      <Row className='mt-3'>
-                         <h1>
+                         <h1  className={modeSelector ? 'text-white' : ''}>
                              Payment Method
                          </h1>
-                         <h5 className='py-2'>
+                         <h5 className={modeSelector ? 'text-white py-2' : 'py-2'}>
                          Payment: Paypal
                          </h5>
                          {
@@ -105,11 +106,11 @@ function OrderScreen() {
                          <hr/>
                      </Row>
                      <Row className='mt-3'>
-                         <h1>
+                         <h1 className={modeSelector ? 'text-white' : ''}>
                              order items
                          </h1>
-                         {selector.map((x)=>
-                                    <ListGroup.Item className='my-2 ms-4'>
+                         {selector.map((x,index)=>
+                                    <ListGroup.Item className='my-2 ms-4' key={index}>
                                        <Row>
                                          <Col md={2} ><Image src={x.image} width={80} /></Col>
                                          <Col md={6}>{x.name}</Col>

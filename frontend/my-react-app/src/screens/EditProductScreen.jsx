@@ -25,6 +25,7 @@ function EditProductScreen() {
     const[countInStock,setCountInStock]=useState(0);
     const prm=useParams();
     const dispatch=useDispatch();
+    const modeSelector=useSelector(state=>state.darkMode.Mode);
     const detailSelector=useSelector(state=>state.products.productData)
     useEffect(()=>{
         
@@ -68,7 +69,7 @@ function EditProductScreen() {
         const formData=new FormData()
         formData.append('image',file);
         try{
-            const data=await axios.post(`http://127.0.0.1:8000/api/products/upload/${prm.id}/`,formData,{
+            const data=await axios.post(`https://ecommerce-1-pt17.onrender.com/api/products/upload/${prm.id}/`,formData,{
                 withCredentials:true,
                 headers:{
                     'Content-Type':'multipart/form-data',
@@ -87,7 +88,7 @@ function EditProductScreen() {
     <FormContainer>
         <Form onSubmit={submitHandler}>
             <Row>
-                <h1>Edit Product Details</h1>
+                <h1 className={modeSelector ? 'text-white' : ''}>Edit Product Details</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formProductName">
                 <Form.Label>Product Name</Form.Label>

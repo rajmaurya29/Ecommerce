@@ -5,7 +5,7 @@ export const payOrder=createAsyncThunk(
     "payOrder",async (id,thunkAPI)=>{
         // console.log(orderData)
         try{
-            console.log(id);
+            // console.log(id);
             const response= await axios.put(`https://ecommerce-1-pt17.onrender.com/api/orders/pay/${id}/`,{},{withCredentials:true});
             // console.log(response.data)
             return response.data;

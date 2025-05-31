@@ -43,7 +43,7 @@ function AdminOrderScreen() {
           <tbody>
             {
                 orderListSelector.length && orderListSelector.map((order,index)=>(
-                <tr>
+                <tr key={index}>
                     <td>{order["_id"]}</td>
                     <td>{order.user["username"]}</td>
                     <td>{order["createdAt"].substring(0,10)}</td>

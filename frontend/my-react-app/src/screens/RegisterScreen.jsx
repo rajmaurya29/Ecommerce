@@ -17,6 +17,7 @@ function RegisterScreen() {
     const dispatch=useDispatch();
     const userLogin=useSelector(state=>state.user)
     const {userInfo,loading,error}=userLogin;
+    const modeSelector = useSelector(state => state.darkMode.Mode);
     const submitHandler=async(e)=>{
         e.preventDefault();
         
@@ -26,9 +27,9 @@ function RegisterScreen() {
         }
         else{
             try{
-                const response= await axios.post("http://127.0.0.1:8000/api/users/register/",{"name":name,"email":email,"password":password},{withCredentials:true})
+                const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/register/",{"name":name,"email":email,"password":password},{withCredentials:true})
                 // console.log(response.data);
-                const response1=dispatch(fetchUser({"username":email,"password":password}))
+                dispatch(fetchUser({"username":email,"password":password}))
                
             }
             catch(error){
@@ -43,7 +44,7 @@ function RegisterScreen() {
         {error && <Message variant="danger">{error}</Message>}
         <Form onSubmit={submitHandler}>
             <Row>
-                <h1>REGISTER</h1>
+                <h1 className={modeSelector ? 'text-white py-2' : 'py-2'}>REGISTER</h1>
             </Row>
             <Form.Group className='mt-3 mb-4' controlId="formBasicName">
                 <Form.Label>Name</Form.Label>

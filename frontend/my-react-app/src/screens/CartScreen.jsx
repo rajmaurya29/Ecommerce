@@ -8,21 +8,22 @@ function CartScreen() {
   const items=useSelector((state)=>state.cart).cartItems;
   const dispatch=useDispatch();
   // console.log(items);
+  const modeSelector=useSelector(state=>state.darkMode.Mode);
   const removeFromCartHandler=(x)=>{
     dispatch(removeFromCart(x))
   }
   const total=items.reduce((a,b)=>a+b.price*b.qty,0);
   // console.log(total);
-  console.log(items)
+  // console.log(items)
   return (
     <>
-    <h1>Items in cart</h1>
+    <h1 className={modeSelector ? 'text-white' : ''}>Items in cart</h1>
     {
-      items.length===0?<h2>No items in cart</h2>:
+      items.length===0?<h2 >No items in cart</h2>:
       
         (<ListGroup variant='flush'>
-          {items.map((x)=>
-           <ListGroup.Item>
+          {items.map((x,index)=>
+           <ListGroup.Item key={index}>
               <Row>
                 <Col md={2} ><Image src={x.image} width={80} /></Col>
                 <Col md={3}>{x.name}</Col>

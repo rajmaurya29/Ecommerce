@@ -17,9 +17,9 @@ function ProductCarousel() {
     carouselSelector.loading?<Loader/>:carouselSelector.error?<Message variant='danger'>{carouselSelector.error}</Message>:
     <Carousel pause='hover' className="product-carousel bg-dark mb-5 ">
         {
-            carouselSelector.carousel.map(product=>(
+            carouselSelector.carousel.map((product,index)=>(
               
-                      <Carousel.Item>
+                      <Carousel.Item key={index}>
                       <Link to={`/product/${product._id}`}>
                          <Image  src={product.image} fluid/>
                          <Carousel.Caption className='carousel-caption'>

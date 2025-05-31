@@ -38,7 +38,7 @@
                         a.push(x)
                     }
                 })
-                console.log(a);
+                // console.log(a);
                 state.cartItems=a;
                 localStorage.setItem('cartItems',JSON.stringify(state.cartItems));
             },

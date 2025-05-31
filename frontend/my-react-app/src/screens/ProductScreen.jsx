@@ -143,7 +143,7 @@ function ProductScreen() {
             </Row>
         </Container>
         <h1 className={modeSelector ? 'text-white' : ''}>other Reviews</h1>
-        
+        {reviewSelector && reviewSelector.length ?
         <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
 
                     <thead>
@@ -154,23 +154,24 @@ function ProductScreen() {
                         <th>Comment</th>
                       </tr>
                     </thead>
-            {
-                reviewSelector && reviewSelector.length ? reviewSelector.map((review,index)=>(
+                    <tbody >
+                { reviewSelector.map((review,index)=>(
                     
-                <tbody>
-                    <tr>
+               
+                    <tr key={index}>
                         <td>{review["_id"]}</td>
                         <td>{review["name"]}</td>
                         <td>{review["rating"]}</td>
                         <td>{review["comment"]}</td>
                     </tr>
-                </tbody>
                 
-                )):
+                
+                ))}</tbody>
+                </Table>:
                 
                 <Message variant='danger'>No review found</Message>
             }
-            </Table>
+            
           
         
         

@@ -5,7 +5,7 @@ import axios from 'axios'
 export const CreateProduct=createAsyncThunk(
     "createProduct",async (data,thunkAPI)=>{
         try{
-            console.log(data)
+            // console.log(data)
             const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/products/create/",data,{ withCredentials:true}
             )
             return response.data;

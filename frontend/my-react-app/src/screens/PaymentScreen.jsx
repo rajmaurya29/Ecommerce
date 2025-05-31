@@ -9,7 +9,7 @@ import CheckoutScreen from './CheckoutScreen'
 function PaymentScreen() {
     const [paymentMethod,setPaymentMethod]=useState('paypal');
     const submitHandler=()=>{
-        console.log(paymentMethod);
+        // console.log(paymentMethod);
     }
   return (
     <FormContainer>

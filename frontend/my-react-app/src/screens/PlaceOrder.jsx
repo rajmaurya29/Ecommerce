@@ -12,6 +12,7 @@ function PlaceOrderScreen() {
     const [countItem,setCountItem]=useState(0);
     const [shipping,setShipping]=useState(0);
     const [tax,setTax]=useState(0);
+    const modeSelector = useSelector(state => state.darkMode.Mode);
     const dispatch=useDispatch();
     const navigate=useNavigate();
     const placeSelector=useSelector((state)=>state.order);
@@ -69,29 +70,29 @@ function PlaceOrderScreen() {
        <Row className='py-4'>
             <Col md={9}>
                 <Row>
-                    <h1>
+                    <h1 className={modeSelector ? 'text-white' : ''}>
                         Shipping
                     </h1>
-                    <h5 className='py-2'>
+                    <h5 className={modeSelector ? 'text-white py-2' : 'py-2'}>
                         shipping: {shippingSelector.address}, {shippingSelector.city}, {shippingSelector.postalCode}, {shippingSelector.country}
                     </h5>
                     <hr/>
                 </Row>
                 <Row className='mt-3'>
-                    <h1>
+                    <h1 className={modeSelector ? 'text-white' : ''}>
                         Payment Method
                     </h1>
-                    <h5 className='py-2'>
+                    <h5 className={modeSelector ? 'text-white py-2' : 'py-2'}>
                     Payment: Paypal
                     </h5>
                     <hr/>
                 </Row>
                 <Row className='mt-3'>
-                    <h1>
+                    <h1 className={modeSelector ? 'text-white' : ''}>
                         order items
                     </h1>
-                    {selector.map((x)=>
-                               <ListGroup.Item className='my-2 ms-4'>
+                    {selector.map((x,index)=>
+                               <ListGroup.Item className='my-2 ms-4' key={index}>
                                   <Row>
                                     <Col md={2} ><Image src={x.image} width={80} /></Col>
                                     <Col md={6}>{x.name}</Col>

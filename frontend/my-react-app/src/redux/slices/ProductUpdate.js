@@ -5,7 +5,7 @@ import axios from 'axios'
 export const ProductUpdate=createAsyncThunk(
     "productUpdateList",async ([data,id],thunkAPI)=>{
         try{
-            console.log(data)
+            // console.log(data)
             const response= await axios.put(`https://ecommerce-1-pt17.onrender.com/api/products/update/${id}/`,data,{ withCredentials:true}
             )
             return response.data;

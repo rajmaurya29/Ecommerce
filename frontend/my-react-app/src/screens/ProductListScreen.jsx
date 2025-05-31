@@ -57,7 +57,7 @@ function ProductListScreen() {
           <tbody>
             {
                 productListSelector.length && productListSelector.map((product,index)=>(
-                <tr>
+                <tr key={index}>
                     <td>{product["_id"]}</td>
                     <td>{product["name"]}</td>
                     <td>${product["price"]}</td>

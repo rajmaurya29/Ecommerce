@@ -5,7 +5,7 @@ import axios from 'axios'
 export const PostReview=createAsyncThunk(
     "postReview",async ([review,id],thunkAPI)=>{
         try{
-            console.log(review)
+            // console.log(review)
             const response= await axios.post(`https://ecommerce-1-pt17.onrender.com/api/products/review/${id}/`,review,{ withCredentials:true}
             )
             return response.data;
