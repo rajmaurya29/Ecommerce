@@ -5,7 +5,7 @@ import axios from 'axios'
 export const GetUser=createAsyncThunk(
     "getUser",async (id,thunkAPI)=>{
         try{
-            const response= await axios.get(`http://127.0.0.1:8000/api/users/editUser/${id}/`,{ withCredentials:true}
+            const response= await axios.get(`https://ecommerce-1-pt17.onrender.com/api/users/editUser/${id}/`,{ withCredentials:true}
             )
             return response.data;
         }

@@ -5,7 +5,7 @@ export const placeOrder=createAsyncThunk(
     "order",async (orderData,thunkAPI)=>{
         console.log(orderData)
         try{
-            const response= await axios.post("http://127.0.0.1:8000/api/orders/addOrder",orderData,{withCredentials:true});
+            const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/orders/addOrder",orderData,{withCredentials:true});
             // console.log(response.data)
             return response.data;
 

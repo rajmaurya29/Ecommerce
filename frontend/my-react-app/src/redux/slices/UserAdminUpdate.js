@@ -7,7 +7,7 @@ export const UserAdminUpdate=createAsyncThunk(
         try{
             // console.log(userData);
             // console.log(id)
-            const response= await axios.put(`http://127.0.0.1:8000/api/users/admin/${id}/`,userData,{ withCredentials:true}
+            const response= await axios.put(`https://ecommerce-1-pt17.onrender.com/api/users/admin/${id}/`,userData,{ withCredentials:true}
             )
             return response.data;
         }

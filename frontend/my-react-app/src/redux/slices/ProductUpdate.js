@@ -6,7 +6,7 @@ export const ProductUpdate=createAsyncThunk(
     "productUpdateList",async ([data,id],thunkAPI)=>{
         try{
             console.log(data)
-            const response= await axios.put(`http://127.0.0.1:8000/api/products/update/${id}/`,data,{ withCredentials:true}
+            const response= await axios.put(`https://ecommerce-1-pt17.onrender.com/api/products/update/${id}/`,data,{ withCredentials:true}
             )
             return response.data;
         }

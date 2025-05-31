@@ -6,7 +6,7 @@ export const fetchDetail=createAsyncThunk(
         // console.log(orderData)
         try{
             // console.log(id);
-            const response= await axios.get(`http://127.0.0.1:8000/api/orders/${id}`,{withCredentials:true});
+            const response= await axios.get(`https://ecommerce-1-pt17.onrender.com/api/orders/${id}`,{withCredentials:true});
             // console.log(response.data);
             return response.data;
 

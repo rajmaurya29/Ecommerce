@@ -3,7 +3,7 @@ import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 export const fetchproducts=createAsyncThunk(
     "fetchproducts",async (keyword,thunkAPI)=>{
         try{
-            const response= await fetch(`http://127.0.0.1:8000/api/products${keyword}`);
+            const response= await fetch(`https://ecommerce-1-pt17.onrender.com/api/products${keyword}`);
             if(!response.ok){
                 throw new Error("Failed to fetch products")
             }
@@ -20,7 +20,7 @@ export const fetchproducts=createAsyncThunk(
 export const fetchproductDetails=createAsyncThunk(
     "fetchproductDetails",async (id,thunkAPI)=>{
         try{
-            const response= await fetch(`http://127.0.0.1:8000/api/products/${id}/`);
+            const response= await fetch(`https://ecommerce-1-pt17.onrender.com/api/products/${id}/`);
             if(!response.ok){
                 throw new Error("Failed to fetch product")
             }

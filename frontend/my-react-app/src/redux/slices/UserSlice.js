@@ -8,7 +8,7 @@ JSON.parse(localStorage.getItem("userInfo")):null;
 export const fetchUser=createAsyncThunk(
     "fetchUser",async ({username,password},thunkAPI)=>{
         try{
-            const response= await axios.post("http://127.0.0.1:8000/api/users/login/",{"username":username,"password":password},
+            const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/login/",{"username":username,"password":password},
                { withCredentials:true}
             )
             return response.data;
@@ -22,7 +22,7 @@ export const fetchUser=createAsyncThunk(
 export const logoutUser=createAsyncThunk(
     "logoutUser",async (_,thunkAPI)=>{
         try{
-            const response= await axios.post("http://127.0.0.1:8000/api/users/logout/",{},
+            const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/logout/",{},
                { withCredentials:true}
             )
             return response.data;

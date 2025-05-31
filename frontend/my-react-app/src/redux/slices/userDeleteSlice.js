@@ -5,7 +5,7 @@ import axios from 'axios'
 export const UserDelete=createAsyncThunk(
     "userDelete",async (id,thunkAPI)=>{
         try{
-            const response= await axios.delete(`http://127.0.0.1:8000/api/users/delete/${id}/`,{ withCredentials:true}
+            const response= await axios.delete(`https://ecommerce-1-pt17.onrender.com/api/users/delete/${id}/`,{ withCredentials:true}
             )
             return response.data;
         }
