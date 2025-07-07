@@ -50,7 +50,7 @@ function App() {
               </Routes>
             </Container>
           </main>
-        <Footer/>
+        {/* <Footer/> */}
         </div>
     </BrowserRouter>
   )

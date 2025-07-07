@@ -67,12 +67,12 @@ cloudinary.config(
     api_key=CLOUDINARY_STORAGE['API_KEY'],
     api_secret=CLOUDINARY_STORAGE['API_SECRET']
 )
-# DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'base.authentication.CookieJWTAuthentication',
-        # 'rest_framework_simplejwt.authentication.JWTAuthentication',
+       
     )
 }
 
@@ -153,41 +153,6 @@ TEMPLATES = [
 WSGI_APPLICATION = 'backend.wsgi.application'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME'),
-#         'USER': os.environ.get('DB_USER'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD'),
-#         'HOST': os.environ.get('DB_HOST'),
-#         'PORT': os.environ.get('DB_PORT'),
-#     }
-# }
-# DATABASES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.sqlite3',
-#         # 'NAME': BA: 'django.db.backends.sqlite3',
-#         # 'NAME': SE_DIR / 'db.sqlite3',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'proshop',
-#         'USER':'postgres',
-#         'PASSWORD':'raj@postgres',
-#         'HOST':'localhost',
-#         'PORT':'5432'
-#     }
-# }SES = {
-#     'default': {
-#         # 'ENGINE': 'django.db.backends.sqlite3',
-#         # 'NAME': BA: 'django.db.backends.sqlite3',
-#         # 'NAME': SE_DIR / 'db.sqlite3',
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'proshop',
-#         'USER':'postgres',
-#         'PASSWORD':'raj@postgres',
-#         'HOST':'localhost',
-#         'PORT':'5432'
-#     }
-# }
 DATABASES = {
     'default': dj_database_url.config(
         default=os.environ.get('DATABASE_URL'),
@@ -196,8 +161,6 @@ DATABASES = {
     )
 }
 
-# Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -244,10 +207,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # CORS_ALLOW_ALL_ORIGINS=True
 # CORS_ALLOW_CREDENTIALS = True
-# CORS_ALLOWED_ORIGINS = [
-#     "http://localhost:5173",
-#     "https://res.cloudinary.com",
-# ]
+
 
 # Allow credentials to be sent with requests
 CORS_ALLOW_CREDENTIALS = True
