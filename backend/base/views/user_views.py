@@ -44,6 +44,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
             samesite='None',
             path='/'
         )
+        
         return response
 
 @api_view(['GET'])
