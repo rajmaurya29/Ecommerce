@@ -19,7 +19,7 @@ function CartScreen() {
     <>
     <h1 className={modeSelector ? 'text-white' : ''}>Items in cart</h1>
     {
-      items.length===0?<h2 >No items in cart</h2>:
+      items.length===0?<h2 className={modeSelector ? 'text-white' : ''}>No items in cart</h2>:
       
         (<ListGroup variant='flush'>
           {items.map((x,index)=>
