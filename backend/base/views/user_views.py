@@ -9,6 +9,8 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from base.serializers import UserSerializer
 from base.serializers import UserSerializerWithToken
 from rest_framework.status import *
+from django.http import JsonResponse
+from django.db import connection
 
 # from django.http import JsonResponse
 # Create your views here.
@@ -158,3 +160,9 @@ def logoutUser(request):
             path='/'
         )
     return response
+
+def health_check(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT 1;")
+        row=cursor.fetchone()
+    return JsonResponse({"status":"ok","db":row[0]})

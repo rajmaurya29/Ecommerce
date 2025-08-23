@@ -15,4 +15,5 @@ urlpatterns = [
     path('delete/<str:id>/', user_views.deleteUser, name='users-deleteUser'),
     path('editUser/<str:id>/', user_views.getUserById, name='users-getUserById'),
     path('admin/<str:id>/', user_views.updateUserAdmin, name='users-updateUserAdmin'),
+    path('health/',user_views.health_check,name='health_check')
 ]
