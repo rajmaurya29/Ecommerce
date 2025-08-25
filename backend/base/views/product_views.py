@@ -9,7 +9,7 @@ from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from cloudinary.uploader import upload
 
 
-@api_view(['GET'])
+@api_view(['GET','HEAD'])
 def getProducts(request):
     keyword=request.query_params.get('keyword')
     page=request.query_params.get('page')
