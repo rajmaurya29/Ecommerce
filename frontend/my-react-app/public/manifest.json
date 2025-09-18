@@ -4,19 +4,19 @@
   "description": "An ecommerce",
   "icons": [
     {
-      "src": "./public/ecommerce.png",
+      "src": "./ecommerce.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./public/ecommerce.png",
+      "src": "./ecommerce.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "./public/ecommerce.png",
+      "src": "./ecommerce.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
