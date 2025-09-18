@@ -1,0 +1,41 @@
+{
+  "name": "Ecommerce",
+  "short_name": "Ecommerce",
+  "description": "An ecommerce",
+  "icons": [
+    {
+      "src": "./public/ecommerce.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./public/ecommerce.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./public/ecommerce.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ],
+  "start_url": "/?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#0a84ff",
+  "lang": "en-US",
+  "shortcuts": [
+    {
+      "name": "Open inbox",
+      "short_name": "Inbox",
+      "description": "Open your inbox",
+      "url": "/inbox",
+      "icons": [{ "src": "/icons/shortcut-inbox.png", "sizes": "192x192" }]
+    }
+  ]
+}
