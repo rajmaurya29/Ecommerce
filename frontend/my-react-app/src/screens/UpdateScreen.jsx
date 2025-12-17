@@ -8,6 +8,8 @@ import FormContainer from '../components/FormContainer'
 import axios from 'axios'
 import { fetchUser } from '../redux/slices/UserSlice'
 import { fetchAllOrder } from '../redux/slices/AllOrderSlice'
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 function UpdateScreen() {
     const [name,setName]=useState('');
@@ -52,7 +54,7 @@ function UpdateScreen() {
         }
         else{
             try{
-                const response= await axios.put("http://127.0.0.1:8000/api/users/update/",{"name":name,"email":email,"password":password},{withCredentials:true})
+                const response= await axios.put(`${API_URL}/api/users/update/`,{"name":name,"email":email,"password":password},{withCredentials:true})
                 // console.log(response.data);
                 const response1=dispatch(fetchUser({"username":email,"password":password}))
                 // console.log(response1);

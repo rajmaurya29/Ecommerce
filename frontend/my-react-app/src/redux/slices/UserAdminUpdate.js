@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export const UserAdminUpdate=createAsyncThunk(
@@ -7,7 +8,7 @@ export const UserAdminUpdate=createAsyncThunk(
         try{
             // console.log(userData);
             // console.log(id)
-            const response= await axios.put(`https://ecommerce-1-pt17.onrender.com/api/users/admin/${id}/`,userData,{ withCredentials:true}
+            const response= await axios.put(`${API_URL}/api/users/admin/${id}/`,userData,{ withCredentials:true}
             )
             return response.data;
         }

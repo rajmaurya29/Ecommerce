@@ -11,6 +11,7 @@ import Message from '../components/Message'
 import { addToCart,removeFromCart } from '../redux/slices/CartSlice'
 import { ProductUpdate } from '../redux/slices/ProductUpdate';
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL;
 
 function EditProductScreen() {
     const navigate=useNavigate();
@@ -69,7 +70,7 @@ function EditProductScreen() {
         const formData=new FormData()
         formData.append('image',file);
         try{
-            const data=await axios.post(`https://ecommerce-1-pt17.onrender.com/api/products/upload/${prm.id}/`,formData,{
+            const data=await axios.post(`${API_URL}/api/products/upload/${prm.id}/`,formData,{
                 withCredentials:true,
                 headers:{
                     'Content-Type':'multipart/form-data',
@@ -108,12 +109,12 @@ function EditProductScreen() {
             </Form.Group>
             <Form.Group className='mt-3 mb-4' controlId="formImage">
                 <Form.Label>image</Form.Label>
-                <Form.Control type='text' placeholder='Enter image' value={image}></Form.Control>
+                <Form.Control type='text' placeholder='Enter image' value={image||""}></Form.Control>
                 <Form.Control
                 type='file'
                     id='image-file'
                     label='Choose file'
-                    custom
+                    customImage
                     onChange={fileUploadHandler}
     
                     />

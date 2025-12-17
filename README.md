@@ -1,4 +1,4 @@
-# 🛒 Full-Stack E-Commerce Website
+# 🛒 Full-Stack E-Comerce Website
 
 This is a **full-stack e-commerce application** built with **Django (backend)**, **React (frontend)**, and **PostgreSQL (database)**.  
 It provides authentication, product management, cart system, order tracking, and an admin panel.

@@ -4,7 +4,7 @@ from rest_framework.decorators import api_view,permission_classes
 from base.models import Product,Review
 from base.serializers import ProductSerializer,ReviewSerializer
 from rest_framework.status import *
-from rest_framework.permissions import IsAuthenticated,IsAdminUser
+from rest_framework.permissions import IsAuthenticated,IsAdminUser,AllowAny
 from django.core.paginator import Paginator,PageNotAnInteger,EmptyPage
 from cloudinary.uploader import upload
 
@@ -40,7 +40,9 @@ def getProduct(request,pk):
     return Response(serializer.data)
 
 @api_view(['GET'])
+@permission_classes([AllowAny])
 def getTopProducts(request):
+    print("runned")
     product=Product.objects.filter(rating__gte=4).order_by("-rating")[0:5]
     serializer=ProductSerializer(product,many=True)
     return Response(serializer.data)

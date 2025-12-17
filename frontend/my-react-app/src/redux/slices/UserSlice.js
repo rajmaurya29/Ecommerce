@@ -1,5 +1,6 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL;
 
 const loginInfoFromStorage=localStorage.getItem("userInfo")?
 JSON.parse(localStorage.getItem("userInfo")):null;
@@ -8,7 +9,7 @@ JSON.parse(localStorage.getItem("userInfo")):null;
 export const fetchUser=createAsyncThunk(
     "fetchUser",async ({username,password},thunkAPI)=>{
         try{
-            const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/login/",{"username":username,"password":password},
+            const response= await axios.post(`${API_URL}/api/users/login/`,{"username":username,"password":password},
                { withCredentials:true}
             )
             return response.data;
@@ -22,7 +23,7 @@ export const fetchUser=createAsyncThunk(
 export const logoutUser=createAsyncThunk(
     "logoutUser",async (_,thunkAPI)=>{
         try{
-            const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/logout/",{},
+            const response= await axios.post(`${API_URL}/api/users/logout/`,{},
                { withCredentials:true}
             )
             return response.data;

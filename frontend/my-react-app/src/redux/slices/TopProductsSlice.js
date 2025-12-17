@@ -1,12 +1,13 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const topProducts=createAsyncThunk(
     "topProducts",async (_,thunkAPI)=>{
         // console.log(orderData)
         try{
             // console.log("ok");
-            const response= await axios.get("https://ecommerce-1-pt17.onrender.com/api/products/carousel/",{withCredentials:true});
+            const response= await axios.get(`${API_URL}/api/products/carousel/`);
             // console.log(response.data);
             return response.data;
 

@@ -1,11 +1,12 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export const UserList=createAsyncThunk(
     "fetchUserList",async (_,thunkAPI)=>{
         try{
-            const response= await axios.get("https://ecommerce-1-pt17.onrender.com/api/users/",{ withCredentials:true}
+            const response= await axios.get(`${API_URL}/api/users/`,{ withCredentials:true}
             )
             return response.data;
         }

@@ -1,12 +1,13 @@
 import { createSlice,createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
+const API_URL = import.meta.env.VITE_API_URL;
 
 
 export const CreateProduct=createAsyncThunk(
     "createProduct",async (data,thunkAPI)=>{
         try{
             // console.log(data)
-            const response= await axios.post("https://ecommerce-1-pt17.onrender.com/api/products/create/",data,{ withCredentials:true}
+            const response= await axios.post(`${API_URL}/api/products/create/`,data,{ withCredentials:true}
             )
             return response.data;
         }
