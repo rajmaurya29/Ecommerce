@@ -28,7 +28,7 @@ function AdminOrderScreen() {
     <div>
         <h1 className={modeSelector ? 'text-white' : ''}>all orders</h1>
        
-        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
+        <Table striped bordered hover responsive variant={modeSelector ? 'dark' : 'light'}>
           <thead>
             <tr>
               <th>ID</th>

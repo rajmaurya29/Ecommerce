@@ -59,92 +59,104 @@ function ProductScreen() {
             <Col md={6} >
                 <Image src={product.image} alt={product.name} fluid/>
             </Col>
-            <Col md={3}>
+            <Col md={6}>
                 <ListGroup variant='flush' >
                     <ListGroup.Item ><h3>{product.name}</h3></ListGroup.Item>
                     <ListGroup.Item ><Rating value={product.rating} text={`${product.numReviews} reviews`} color={'#f8e825'}/></ListGroup.Item>
-                    <ListGroup.Item ><strong>Price: ${product.price}</strong></ListGroup.Item>
+                    <ListGroup.Item >Price: ${product.price}</ListGroup.Item>
                     <ListGroup.Item>Description: {product.description}</ListGroup.Item>
                 </ListGroup>
-            </Col>
-            <Col md={3}>
-                <ListGroup variant='flush'>
-                    <ListGroup.Item>
-                        <Row>
-                            <Col>Price: </Col>
-                            <Col>${product.price } </Col>
-                        </Row>
-                    </ListGroup.Item>
-                    <ListGroup.Item>
-                        <Row>
-                            <Col>Status: </Col>
-                            <Col>{product.countInStock<=0? "Out of Stock" : "In Stock"} </Col>
-                        </Row>
-                    </ListGroup.Item>
-
-                    {product.countInStock>0 && 
+                <Card className="mt-3">
+                    <ListGroup variant='flush'>
                         <ListGroup.Item>
                             <Row>
-                                <Col>Qty </Col>
-                                <Col xs='auto' className='my-1'>
-                                    <Form.Control as='select' value={qty} onChange={(e)=>setQty(e.target.value)} >
-                                        {[...Array(product.countInStock).keys()].map((x)=>(
-                                            <option key={x+1} value={x+1}>{x+1}</option>
-                                        )
-                                        )}
-                                    </Form.Control>
-                                </Col>
+                                <Col>Price:</Col>
+                                <Col><strong>${product.price}</strong></Col>
                             </Row>
                         </ListGroup.Item>
-                    }
+                        <ListGroup.Item>
+                            <Row>
+                                <Col>Status:</Col>
+                                <Col>{product.countInStock > 0 ? 'In Stock' : 'Out of Stock'}</Col>
+                            </Row>
+                        </ListGroup.Item>
 
-                    <ListGroup.Item>
-                        <Button className='btn-block px-5 mx-1 w-100 h-100' type='button' onClick={addToCartHandler} disabled={product.countInStock<=0}>Add to Cart</Button>
-                    </ListGroup.Item>
-                </ListGroup>
+                        {product.countInStock > 0 && (
+                            <ListGroup.Item>
+                                <Row className="align-items-center">
+                                    <Col>Qty:</Col>
+                                    <Col>
+                                        <Form.Control as="select" value={qty} onChange={(e) => setQty(e.target.value)}>
+                                            {[...Array(product.countInStock).keys()].map((x) => (
+                                                <option key={x + 1} value={x + 1}>{x + 1}</option>
+                                            ))}
+                                        </Form.Control>
+                                    </Col>
+                                </Row>
+                            </ListGroup.Item>
+                        )}
+
+                        <ListGroup.Item>
+                            <Button
+                                onClick={addToCartHandler}
+                                className='btn-block w-100'
+                                type='button'
+                                disabled={product.countInStock <= 0}>
+                                Add to Cart
+                            </Button>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
             </Col>
         </Row>
         }
         
-        <Container>
+        <Container className="mt-5">
             <Row>
-                <Col md={4}>
-                {/* <FormContainer> */}
-        {/* <Form onSubmit={reviewHandler}> */}
-        <Form onSubmit={reviewHandler} className={modeSelector ? ' text-white' : 'bg-light'}>
-
-            <Row>
-            <h1 className={modeSelector ? 'text-white' : ''}>Review product</h1>
-            </Row>
-            <Form.Group className='mt-3 mb-4' controlId="formBasicName">
-                <Form.Label>Rating</Form.Label>
-                <Form.Control as='select' value={rat} onChange={(e)=>setRat(e.target.value)} >
-                                        {[...Array(5).keys()].map((x)=>(
-                                            <option key={x+1} value={x+1}>{x+1}</option>
-                                        )
-                                        )}
+                <Col md={8}>
+                    <h2>Write a Customer Review</h2>
+                    {userSelector ? (
+                    <Card>
+                        <Card.Body>
+                            <Form onSubmit={reviewHandler}>
+                                <Form.Group controlId='rating' className="my-2">
+                                    <Form.Label>Rating</Form.Label>
+                                    <Form.Control
+                                        as='select'
+                                        value={rat}
+                                        onChange={(e) => setRat(e.target.value)}
+                                    >
+                                        <option value='1'>1 - Poor</option>
+                                        <option value='2'>2 - Fair</option>
+                                        <option value='3'>3 - Good</option>
+                                        <option value='4'>4 - Very Good</option>
+                                        <option value='5'>5 - Excellent</option>
                                     </Form.Control>
-            </Form.Group>
-            
-            <Form.Group className='mt-3 mb-4' controlId="formBasicComment">
-                <Form.Label>Comment</Form.Label>
-                <Form.Control type='text' placeholder='Enter comment' value={comment} onChange={(e)=>setComment(e.target.value)}/>
-            </Form.Group>
-          
-           
-             
-    
-            <Button type='submit' className='mt-3 mb-5'>
-                Submit review
-            </Button>
-        </Form>
-    {/* </FormContainer> */}
+                                </Form.Group>
+                                <Form.Group controlId='comment' className="my-2">
+                                    <Form.Label>Comment</Form.Label>
+                                    <Form.Control
+                                        as='textarea'
+                                        rows='3'
+                                        value={comment}
+                                        onChange={(e) => setComment(e.target.value)}
+                                    ></Form.Control>
+                                </Form.Group>
+                                <Button type='submit' variant='primary' className="mt-3">
+                                    Submit
+                                </Button>
+                            </Form>
+                        </Card.Body>
+                    </Card>
+                    ) : (
+                        <Message>Please <Link to='/login'>sign in</Link> to write a review</Message>
+                    )}
                 </Col>
             </Row>
         </Container>
         <h1 className={modeSelector ? 'text-white' : ''}>other Reviews</h1>
         {reviewSelector && reviewSelector.length ?
-        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
+        <Table striped bordered hover responsive variant={modeSelector ? 'dark' : 'light'}>
 
                     <thead>
                       <tr>

@@ -43,7 +43,7 @@ function ProductListScreen() {
     <div>
         <h1 className={modeSelector ? 'text-white' : ''}>products</h1>
         <Button onClick={()=>navigate("/admin/products/create")} className='my-4'>+create product</Button>
-        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
+        <Table striped bordered hover responsive variant={modeSelector ? 'dark' : 'light'}>
           <thead>
             <tr>
               <th>PRODUCT ID</th>

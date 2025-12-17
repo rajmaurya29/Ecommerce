@@ -27,7 +27,7 @@ function UserListScreen() {
   return (
     <div>
         <h1 className={modeSelector ? 'text-white' : ''}>users</h1>
-        <Table striped bordered hover variant={modeSelector ? 'dark' : 'light'}>
+        <Table striped bordered hover responsive variant={modeSelector ? 'dark' : 'light'}>
           <thead>
             <tr>
               <th>ID</th>
