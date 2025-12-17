@@ -11,6 +11,9 @@ from base.serializers import UserSerializerWithToken
 from rest_framework.status import *
 from django.http import JsonResponse
 from django.db import connection
+from django.contrib.auth.password_validation import validate_password
+from django.core.validators import validate_email
+from django.core.exceptions import ValidationError
 
 # from django.http import JsonResponse
 # Create your views here.
@@ -117,6 +120,8 @@ def deleteUser(request,id):
 def registerUsers(request):
     data=request.data
     try:
+        validate_email(data['email'])
+        validate_password(data['password'])
         user=User.objects.create_user(
             first_name=data['name'],
             username=data['email'],
@@ -125,6 +130,10 @@ def registerUsers(request):
         )
         serializer=UserSerializerWithToken(user,many=False)
         return Response(serializer.data)
+        
+    except ValidationError as e:
+        message={"message":e.messages}
+        return Response(message,status=HTTP_400_BAD_REQUEST)
     except:
         message={'detail':'User already exist with same username'}
         return Response(message,status=HTTP_400_BAD_REQUEST)

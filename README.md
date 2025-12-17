@@ -40,7 +40,7 @@ Explore the Django Admin Panel here:
 
 **Login Credentials:**  
 - Username: `raj@gmail.com`  
-- Password: `raj`  
+- Password: `Raj@maurya1`  
 
 (Use normal login form with these credentials to log in as admin.)
 

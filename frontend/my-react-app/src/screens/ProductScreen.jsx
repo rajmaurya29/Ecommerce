@@ -114,13 +114,13 @@ function ProductScreen() {
         <Container className="mt-5">
             <Row>
                 <Col md={8}>
-                    <h2>Write a Customer Review</h2>
+                    <h2 className={modeSelector ? 'text-white' : ''}>Write a Customer Review</h2>
                     {userSelector ? (
-                    <Card>
+                    <Card className={modeSelector ? 'bg-dark' : ''}>
                         <Card.Body>
                             <Form onSubmit={reviewHandler}>
                                 <Form.Group controlId='rating' className="my-2">
-                                    <Form.Label>Rating</Form.Label>
+                                    <Form.Label className={modeSelector ? 'text-white' : ''}>Rating</Form.Label>
                                     <Form.Control
                                         as='select'
                                         value={rat}
@@ -134,7 +134,7 @@ function ProductScreen() {
                                     </Form.Control>
                                 </Form.Group>
                                 <Form.Group controlId='comment' className="my-2">
-                                    <Form.Label>Comment</Form.Label>
+                                    <Form.Label className={modeSelector ? 'text-white' : ''}>Comment</Form.Label>
                                     <Form.Control
                                         as='textarea'
                                         rows='3'
