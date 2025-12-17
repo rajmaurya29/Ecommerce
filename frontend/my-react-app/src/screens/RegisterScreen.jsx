@@ -20,6 +20,8 @@ function RegisterScreen() {
 
     const userLogin = useSelector(state => state.user);
     const { userInfo, loading, error } = userLogin;
+    const modeSelector = useSelector(state => state.darkMode.Mode);
+
 
     useEffect(() => {
         if (userInfo) {
@@ -48,7 +50,7 @@ function RegisterScreen() {
 
     return (
         <FormContainer>
-            <h1>Sign Up</h1>
+            <h1 className={modeSelector ? 'text-white' : ''}>Sign Up</h1>
             {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
