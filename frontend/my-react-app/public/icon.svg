@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- Black Background -->
+  <rect width="512" height="512" rx="80" fill="#000000"/>
+  
+  <!-- Minimalist Shopping Bag -->
+  <g transform="translate(256, 280)">
+    <!-- Bag outline -->
+    <path d="M -90 -100 L -110 100 Q -110 120 -90 120 L 90 120 Q 110 120 110 100 L 90 -100 Z" 
+          fill="none" stroke="#ffffff" stroke-width="12" stroke-linejoin="round"/>
+    
+    <!-- Handle -->
+    <path d="M -50 -100 Q -50 -180 0 -180 Q 50 -180 50 -100" 
+          fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round"/>
+    
+    <!-- Smile/Check mark detail -->
+    <path d="M -40 20 L -10 50 L 40 -10" 
+          fill="none" stroke="#ffffff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+</svg>
