@@ -1,6 +1,6 @@
 {
   "name": "Ecommerce",
-  "short_name": "EShop",
+  "short_name": "ProShop",
   "description": "Your one-stop shop for all your shopping needs",
   "start_url": "/",
   "display": "standalone",
