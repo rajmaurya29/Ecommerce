@@ -35,7 +35,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', 'unsafe-secret-for-dev-only')
 DEBUG = os.environ.get('DEBUG', 'True') == 'True'
 
  
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 
 
 # Application definition
