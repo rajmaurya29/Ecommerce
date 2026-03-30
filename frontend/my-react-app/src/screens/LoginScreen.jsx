@@ -49,7 +49,10 @@ function LoginScreen() {
                 Submit
             </Button>
             <Row>
-                <Col  className='mt-2'>Not registered? <Link to="/register"> Register here</Link></Col>
+                <Col className='mt-2'>Not registered? <Link to="/register"> Register here</Link></Col>
+            </Row>
+            <Row>
+                <Col className='mt-2'><Link to="/forgot-password">Forgot Password?</Link></Col>
             </Row>
         </Form>
     </FormContainer>

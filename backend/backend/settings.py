@@ -21,6 +21,7 @@ import cloudinary.api
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+ENVIRONMENT = os.environ.get("ENVIRONMENT", "local")
 
 
 # Quick-start development settings - unsuitable for production
@@ -213,7 +214,16 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOW_CREDENTIALS = True
 
 # Allow all origins (with security considerations)
-CORS_ALLOW_ALL_ORIGINS = True
+if ENVIRONMENT == "local":
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",
+    ]
+else:
+    CORS_ALLOWED_ORIGINS = [
+        "http://localhost:5173",
+        "https://ecommerce-psi-rouge.vercel.app",
+    ]
+
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)

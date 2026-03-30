@@ -18,6 +18,9 @@ import ProductListScreen from "./screens/ProductListScreen";
 import EditProductScreen from "./screens/EditProductScreen";
 import CreateProductScreen from "./screens/CreateProductScreen";
 import AdminOrderScreen from "./screens/AdminOrderScreen";
+import ForgotPasswordScreen from "./screens/ForgotPasswordScreen";
+import ResetPasswordScreen from "./screens/ResetPasswordScreen";
+import VerifyEmailScreen from "./screens/VerifyEmailScreen";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -34,6 +37,9 @@ function App() {
                 <Route path="/cart/:id?" element={<CartScreen/>}/>
                 <Route path="/login/" element={<LoginScreen/>}/>
                 <Route path="/register/" element={<RegisterScreen/>}/>
+                <Route path="/forgot-password/" element={<ForgotPasswordScreen/>}/>
+                <Route path="/reset-password/" element={<ResetPasswordScreen/>}/>
+                <Route path="/verify-email/" element={<VerifyEmailScreen/>}/>
                 <Route path="/profile/" element={<UpdateScreen/>}/>
                 <Route path="/shipping/" element={<ShippingScreen/>}/>
                 <Route path="/payment/" element={<PaymentScreen/>}/>

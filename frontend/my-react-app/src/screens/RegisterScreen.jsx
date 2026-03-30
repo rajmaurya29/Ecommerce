@@ -14,6 +14,7 @@ function RegisterScreen() {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [message, setMessage] = useState('');
+    const [successMessage, setSuccessMessage] = useState('');
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -39,9 +40,14 @@ function RegisterScreen() {
             setMessage("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
         } else {
             setMessage('');
+            setSuccessMessage('');
             try {
-                await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/register/", { "name": name, "email": email, "password": password }, { withCredentials: true });
-                dispatch(fetchUser({ "username": email, "password": password }));
+                const { data } = await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/register/", { "name": name, "email": email, "password": password }, { withCredentials: true });
+                setSuccessMessage(data.message + '. Please check your email to verify your account before logging in.');
+                setName('');
+                setEmail('');
+                setPassword('');
+                setConfirmPassword('');
             } catch (error) {
                 setMessage(error.response && error.response.data.detail ? error.response.data.detail : error.message);
             }
@@ -51,6 +57,7 @@ function RegisterScreen() {
     return (
         <FormContainer>
             <h1 className={modeSelector ? 'text-white' : ''}>Sign Up</h1>
+            {successMessage && <Message variant='success'>{successMessage}</Message>}
             {message && <Message variant='danger'>{message}</Message>}
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
