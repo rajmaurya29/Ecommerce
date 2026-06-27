@@ -7,6 +7,7 @@ import Message from '../components/Message'
 import FormContainer from '../components/FormContainer'
 import axios from 'axios'
 import { fetchUser } from '../redux/slices/UserSlice'
+const API_URL = import.meta.env.VITE_API_URL;
 
 function RegisterScreen() {
     const [name, setName] = useState('');
@@ -30,27 +31,33 @@ function RegisterScreen() {
         }
     }, [navigate, userInfo]);
 
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.,#^()_+=\-])[A-Za-z\d@$!%*?&.,#^()_+=\-]{8,}$/;
+
     const submitHandler = async (e) => {
         e.preventDefault();
-        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
         if (password !== confirmPassword) {
             setMessage("Passwords do not match");
-        } else if (!passwordRegex.test(password)) {
+            return;
+        } 
+        
+        if (!passwordRegex.test(password)) {
             setMessage("Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special character.");
-        } else {
+            return;
+        }
+
+        setMessage('');
+        setSuccessMessage('');
+        try {
+            const { data } = await axios.post(`${API_URL}/api/users/register/`, { "name": name, "email": email, "password": password }, { withCredentials: true });
+            setSuccessMessage(data.message + '. Please check your email to verify your account before logging in.');
+            setName('');
+            setEmail('');
+            setPassword('');
+            setConfirmPassword('');
             setMessage('');
-            setSuccessMessage('');
-            try {
-                const { data } = await axios.post("https://ecommerce-1-pt17.onrender.com/api/users/register/", { "name": name, "email": email, "password": password }, { withCredentials: true });
-                setSuccessMessage(data.message + '. Please check your email to verify your account before logging in.');
-                setName('');
-                setEmail('');
-                setPassword('');
-                setConfirmPassword('');
-            } catch (error) {
-                setMessage(error.response && error.response.data.detail ? error.response.data.detail : error.message);
-            }
+        } catch (error) {
+            setMessage(error.response && error.response.data.detail ? error.response.data.detail : error.message);
         }
     };
 
